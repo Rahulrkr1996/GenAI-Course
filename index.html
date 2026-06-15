@@ -1,446 +1,698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generative AI Mastery for PMs & Business Professionals</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --accent-color: #38bdf8;
-            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
-            --border-color: #334155;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generative AI Mastery — Enterprise Executive Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    :root {
+      --bg:        #07090F;
+      --surface:   #0D1117;
+      --surface-2: #111827;
+      --border:    rgba(255,255,255,0.07);
+      --border-hi: rgba(255,255,255,0.13);
+      --text:      #F0EFE9;
+      --muted:     #8B8FA8;
+      --faint:     #4B5063;
+      --indigo:    #6366F1;
+      --indigo-dk: #4F52C8;
+      --gold:      #D4A843;
+      --gold-lt:   #F0C96A;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-top: 80px; /* Space for fixed header */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    html { scroll-behavior: smooth; }
 
-        /* Fixed Navigation Header */
-        header.nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4rem;
-            z-index: 1000;
-        }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+    /* ── HEADER ─────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 72px;
+      background: rgba(7, 9, 15, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      z-index: 100;
+    }
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.025em;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
 
-        .brand-divider {
-            color: var(--border-color);
-            font-weight: 300;
-        }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-dk) 100%);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
 
-        .studio-brand {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            transition: color 0.2s ease;
-        }
+    .logo-mark svg { width: 16px; height: 16px; }
 
-        .studio-brand:hover {
-            color: var(--accent-color);
-        }
+    .logo-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
 
-        /* Tab Navigation Links */
-        .tab-container {
-            display: flex;
-            gap: 1rem;
-        }
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border-hi);
+    }
 
-        .tab-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            padding: 0.5rem 1.25rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
+    .studio-link {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
 
-        .tab-btn:hover {
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
+    .studio-link:hover { color: var(--text); }
 
-        /* Hero Container */
-        .hero-section {
-            max-width: 1200px;
-            margin: 4rem auto 2rem auto;
-            padding: 0 2rem;
-            text-align: center;
-            position: relative;
-        }
+    nav { display: flex; gap: 0.25rem; }
 
-        .hero-section::before {
-            content: "";
-            position: absolute;
-            top: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: -1;
-        }
+    nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: all 0.18s;
+    }
 
-        .badge-pill {
-            display: inline-block;
-            background-color: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: var(--accent-color);
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
+    nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-hi);
+    }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero-wrap {
+      padding-top: 72px;
+      flex: 1;
+    }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 2rem auto;
-        }
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
 
-        /* Instructor Badge Layout */
-        .instructor-meta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: rgba(30, 41, 59, 0.5);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 700px 400px at 50% 0%, rgba(99,102,241,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        .instructor-meta span {
-            color: var(--text-muted);
-        }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
 
-        .instructor-meta a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px dashed var(--accent-color);
-            transition: color 0.2s ease;
-        }
+    .eyebrow-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
 
-        .instructor-meta a:hover {
-            color: var(--accent-color);
-        }
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
 
-        /* Program Overview Quick Grid */
-        .meta-strip {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-bottom: 5rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 0;
-            background-color: rgba(30, 41, 59, 0.2);
-        }
+    .h1-accent {
+      background: linear-gradient(90deg, var(--indigo) 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .meta-box span {
-            display: block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-        }
+    /* Scan-line shimmer — the signature element, one pass only */
+    @keyframes shimmer {
+      0%   { background-position: -800px center; }
+      60%  { background-position:  800px center; }
+      100% { background-position:  800px center; }
+    }
 
-        .meta-box strong {
-            font-size: 1.3rem;
-            color: #fff;
-        }
+    .hero h1::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 65%
+      );
+      background-size: 800px 100%;
+      animation: shimmer 3s ease-out 0.8s 1 forwards;
+      pointer-events: none;
+    }
 
-        /* Dynamic Route Modules Split Section */
-        .portal-grid {
-            max-width: 1200px;
-            margin: 0 auto 4rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
-            flex-grow: 1;
-        }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
 
-        .portal-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 1rem;
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            box-shadow: var(--shadow);
-        }
+    .instructor-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      border-radius: 100px;
+      padding: 0.45rem 1.1rem 0.45rem 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 3.5rem;
+    }
 
-        .portal-card:hover {
-            transform: translateY(-4px);
-            border-color: #475569;
-        }
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo) 0%, #818CF8 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
 
-        .portal-card h2 {
-            color: #fff;
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
+    .instructor-pill a {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(99,102,241,0.4);
+      transition: border-color 0.2s;
+    }
 
-        .portal-card p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-size: 1rem;
-            flex-grow: 1;
-        }
+    .instructor-pill a:hover { border-color: var(--indigo); }
 
-        .nested-links {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-bottom: 2rem;
-        }
+    /* ── METRICS STRIP ──────────────────────────────────── */
+    .metrics {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
 
-        .nested-links span {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
+    .metric {
+      text-align: center;
+      padding: 0 4rem;
+      position: relative;
+    }
 
-        .nested-links a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
+    .metric + .metric::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      height: 32px;
+      width: 1px;
+      background: var(--border);
+    }
 
-        .nested-links a:hover {
-            text-decoration: underline;
-        }
+    .metric-val {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
 
-        .portal-btn {
-            display: inline-block;
-            background: var(--accent-gradient);
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            padding: 0.8rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: opacity 0.2s ease;
-        }
+    .metric-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-top: 0.35rem;
+    }
 
-        .portal-btn:hover {
-            opacity: 0.9;
-        }
+    /* ── PORTAL GRID ────────────────────────────────────── */
+    .portals {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
 
-        /* Branding Footer Layout */
-        footer {
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background-color: rgba(15, 23, 42, 0.8);
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
+    .portal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.22s, transform 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
 
-        footer a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
+    .portal-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.4) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.22s;
+    }
 
-        footer a:hover {
-            color: var(--accent-color);
-        }
+    .portal-card:hover {
+      border-color: rgba(99,102,241,0.3);
+      transform: translateY(-3px);
+    }
 
-        /* Responsive UI Optimization */
-        @media (max-width: 768px) {
-            header.nav-header {
-                padding: 0 1.5rem;
-            }
-            .logo-group {
-                gap: 0.5rem;
-            }
-            .brand-divider, .studio-brand {
-                display: none; /* Hide secondary branding on tiny headers to prevent wrap */
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            .meta-strip {
-                flex-direction: column;
-                gap: 1.5rem;
-                align-items: center;
-            }
-            .portal-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-    </style>
+    .portal-card:hover::before { opacity: 1; }
+
+    .portal-card.primary { border-color: rgba(99,102,241,0.2); }
+
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .card-icon.indigo { background: rgba(99,102,241,0.12); }
+    .card-icon.slate  { background: rgba(255,255,255,0.05); }
+
+    .card-icon svg {
+      width: 22px; height: 22px;
+    }
+
+    .portal-card h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .portal-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-hi);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+      transition: background 0.18s, border-color 0.18s;
+    }
+
+    .quick-link:hover {
+      background: rgba(99,102,241,0.07);
+      border-color: rgba(99,102,241,0.3);
+    }
+
+    .quick-link-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .quick-link-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--indigo);
+    }
+
+    .quick-link-arrow {
+      margin-left: auto;
+      color: var(--faint);
+      transition: transform 0.18s, color 0.18s;
+    }
+
+    .quick-link:hover .quick-link-arrow {
+      transform: translateX(3px);
+      color: var(--indigo);
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.925rem;
+      padding: 0.8rem 1.25rem;
+      border-radius: 8px;
+      transition: opacity 0.18s, transform 0.18s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-dk) 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.25);
+    }
+
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border-hi);
+    }
+
+    .btn-secondary:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    /* ── MODULE COUNT BANNER ────────────────────────────── */
+    .module-banner {
+      max-width: 1100px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .module-inner {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .module-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--indigo);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .module-sep {
+      width: 1px;
+      height: 52px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .module-text h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .module-text p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .module-tags {
+      margin-left: auto;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 5px;
+      background: rgba(99,102,241,0.1);
+      color: #818CF8;
+      border: 1px solid rgba(99,102,241,0.18);
+    }
+
+    .tag.gold {
+      background: rgba(212,168,67,0.1);
+      color: var(--gold-lt);
+      border-color: rgba(212,168,67,0.2);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--faint);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    footer .footer-right { display: flex; gap: 1.5rem; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header { padding: 0 1.25rem; }
+      .header-divider, .studio-link { display: none; }
+      .hero { padding: 5rem 1.25rem 3.5rem; }
+      .metrics { flex-direction: column; gap: 1.75rem; align-items: center; }
+      .metric + .metric::before { display: none; }
+      .portals { grid-template-columns: 1fr; padding: 3rem 1.25rem 4rem; }
+      .module-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .module-tags { margin-left: 0; justify-content: flex-start; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-right { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- STICKY TOP HEADER WITH TAB ACTION SYSTEM & STUDIO BRANDING -->
-    <header class="nav-header">
-        <div class="logo-group">
-            <div class="logo">GenAI Mastery</div>
-            <span class="brand-divider">|</span>
-            <a href="https://www.rachna-ai.in" target="_blank" class="studio-brand">Rachna AI Studio</a>
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-left">
+      <div class="logo-mark">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13 L8 3 L13 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 9.5 L11 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">GenAI Mastery</span>
+      <div class="header-divider"></div>
+      <a href="https://www.rachna-ai.in" target="_blank" class="studio-link">Rachna AI Studio</a>
+    </div>
+    <nav>
+      <a href="syllabus/">Syllabus</a>
+      <a href="notes/">Notes</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <div class="hero-wrap">
+    <section class="hero">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Enterprise Executive Program
+        <span class="eyebrow-dot"></span>
+      </div>
+
+      <h1>
+        Generative AI Mastery<br />
+        for <span class="h1-accent">Product Managers</span><br />
+        &amp; Business Professionals
+      </h1>
+
+      <p class="hero-sub">
+        A framework-driven intensive that transforms business leaders into AI strategists — capable of building custom knowledge engines, automation workflows, and production-grade AI platforms without prior engineering experience.
+      </p>
+
+      <div class="instructor-pill">
+        <div class="avatar">RK</div>
+        <span>Taught by</span>
+        <a href="https://Rahulrkr1996.github.io/" target="_blank" rel="noopener">Rahul Kumar</a>
+        <span>· IIT Kharagpur</span>
+      </div>
+    </section>
+
+    <!-- ── METRICS ── -->
+    <div class="metrics">
+      <div class="metric">
+        <span class="metric-val">5</span>
+        <span class="metric-label">Months Duration</span>
+      </div>
+      <div class="metric">
+        <span class="metric-val">10</span>
+        <span class="metric-label">Core Modules</span>
+      </div>
+      <div class="metric">
+        <span class="metric-val">3×</span>
+        <span class="metric-label">Classes per Week</span>
+      </div>
+      <div class="metric">
+        <span class="metric-val">2h</span>
+        <span class="metric-label">Per Session</span>
+      </div>
+    </div>
+
+    <!-- ── MODULE BANNER ── -->
+    <div class="module-banner" style="margin-top: 4rem;">
+      <div class="module-inner">
+        <span class="module-num">10</span>
+        <div class="module-sep"></div>
+        <div class="module-text">
+          <h3>Structured learning pathway</h3>
+          <p>From AI fundamentals to production RAG pipelines, automation architectures, and zero-code MVP generation — every module builds on the last.</p>
         </div>
-        <div class="tab-container">
-            <a href="syllabus/" class="tab-btn">Syllabus</a>
-            <a href="notes/" class="tab-btn">Notes</a>
+        <div class="module-tags">
+          <span class="tag">RAG Frameworks</span>
+          <span class="tag">Automation Loops</span>
+          <span class="tag gold">MVP Generation</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag gold">Prompt Engineering</span>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main>
-        <div class="hero-section">
-            <span class="badge-pill">Enterprise Executive Program</span>
-            <h1>Generative AI Mastery for Product Managers & Business Professionals</h1>
-            <p class="hero-subtitle">
-                An intensive, framework-driven program designed to transform business leaders into highly technical AI strategists capable of building platforms, custom knowledge engines, and automated workflows.
-            </p>
-            
-            <!-- INSTRUCTOR METADATA INTERACTION LINK -->
-            <div class="instructor-meta">
-                <span>Classes led by</span>
-                <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>
-            </div>
+    <!-- ── PORTAL CARDS ── -->
+    <section class="portals">
+
+      <div class="portal-card primary">
+        <div>
+          <div class="card-icon indigo">
+            <svg viewBox="0 0 22 22" fill="none" stroke="#6366F1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h14M4 10h10M4 14h7"/>
+              <rect x="14" y="13" width="5" height="5" rx="1"/>
+            </svg>
+          </div>
+          <h2>Interactive Syllabus</h2>
+          <p>Navigate the complete 10-module curriculum. Structured across RAG system design, custom automation pipelines, dynamic web architectures, and AI-assisted product development.</p>
         </div>
-
-        <!-- STRUCTURAL PROGRAM METRICS -->
-        <div class="meta-strip">
-            <div class="meta-box">
-                <span>Program Duration</span>
-                <strong>5 Months Total</strong>
+        <div>
+          <a href="syllabus/" class="quick-link">
+            <div>
+              <div class="quick-link-label">Full Curriculum</div>
+              <div class="quick-link-title">View the 5-month track</div>
             </div>
-            <div class="meta-box">
-                <span>Weekly Cadence</span>
-                <strong>3 Classes / Week</strong>
-            </div>
-            <div class="meta-box">
-                <span>Class Strategy</span>
-                <strong>2 Hours / Cohort</strong>
-            </div>
+            <svg class="quick-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="syllabus/" class="btn btn-primary">Explore Syllabus →</a>
         </div>
+      </div>
 
-        <!-- ROUTE ENTRY GRID PORTALS -->
-        <div class="portal-grid">
-            
-            <!-- PORTAL 1: SYLLABUS HUB ROUTE -->
-            <div class="portal-card">
-                <div>
-                    <h2>Interactive Syllabus</h2>
-                    <p>Dive deep into the structured 10-module pathway. Explore operational concepts spanning across custom RAG frameworks, automation loops, dynamic website architectures, and non-code MVP generation ecosystems.</p>
-                </div>
-                <div>
-                    <div class="nested-links">
-                        <span>Curriculum View:</span>
-                        <a href="syllabus/">View Full 5-Month Track &rarr;</a>
-                    </div>
-                    <a href="syllabus/" class="portal-btn">Explore Syllabus</a>
-                </div>
-            </div>
-
-            <!-- PORTAL 2: NOTES HUB ROUTE -->
-            <div class="portal-card">
-                <div>
-                    <h2>Knowledge Base & Notes</h2>
-                    <p>Review comprehensive live notes, functional deep dives, optimization blueprints, and logical structures parsed out across every dedicated technical milestone.</p>
-                </div>
-                <div>
-                    <div class="nested-links">
-                        <span>Quick Access First Session:</span>
-                        <a href="notes/class_1/">Class 1 Notes: Introduction to GenAI &rarr;</a>
-                    </div>
-                    <a href="notes/" class="portal-btn" style="background: linear-gradient(135deg, #475569 0%, #334155 100%); border: 1px solid var(--border-color);">Browse Notes Archive</a>
-                </div>
-            </div>
-
+      <div class="portal-card">
+        <div>
+          <div class="card-icon slate">
+            <svg viewBox="0 0 22 22" fill="none" stroke="#8B8FA8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 2L4 5v6c0 4.5 3.2 8.2 7 9 3.8-.8 7-4.5 7-9V5l-7-3z"/>
+              <path d="M8 11l2 2 4-4"/>
+            </svg>
+          </div>
+          <h2>Knowledge Base &amp; Notes</h2>
+          <p>Comprehensive live session notes, deep-dive references, optimization blueprints, and technical breakdowns — indexed across every milestone of the program.</p>
         </div>
-    </main>
+        <div>
+          <a href="notes/class1/" class="quick-link">
+            <div>
+              <div class="quick-link-label">Quick Access</div>
+              <div class="quick-link-title">Class 1 — Introduction to GenAI</div>
+            </div>
+            <svg class="quick-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="notes/" class="btn btn-secondary">Browse Notes Archive →</a>
+        </div>
+      </div>
 
-    <!-- CREDITS & PARTNERSHIP BRAND FOOTER -->
-    <footer>
-        <p>&copy; 2026 Powered by <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a>. Developed by <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>.</p>
-    </footer>
+    </section>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>© 2026 Rachna AI Studio. All rights reserved.</span>
+    <div class="footer-right">
+      <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a>
+      <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>
+      <a href="syllabus/">Syllabus</a>
+      <a href="notes/">Notes</a>
+    </div>
+  </footer>
 
 </body>
 </html>
