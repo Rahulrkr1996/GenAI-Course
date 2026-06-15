@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI Mastery for PMs & Business Professionals</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --border-color: #334155;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: 80px; /* Space for fixed header */
+        }
+
+        /* Fixed Navigation Header */
+        header.nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.025em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Global Tab Switching Styles */
+        .tab-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 0.5rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            background-color: rgba(56, 189, 248, 0.1);
+            border-color: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Hero Container */
+        .hero-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: var(--accent-color);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+
+        /* Program Overview Quick Grid */
+        .meta-strip {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            background-color: rgba(30, 41, 59, 0.2);
+        }
+
+        .meta-box text-align: center; {
+        }
+
+        .meta-box span {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-box strong {
+            font-size: 1.3rem;
+            color: #fff;
+        }
+
+        /* Dynamic Route Modules Split Section */
+        .portal-grid {
+            max-width: 1200px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        .portal-card h2 {
+            color: #fff;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .portal-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+
+        .nested-links {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nested-links span {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .nested-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nested-links a:hover {
+            text-decoration: underline;
+        }
+
+        .portal-btn {
+            display: inline-block;
+            background: var(--accent-gradient);
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .portal-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive UI Optimization */
+        @media (max-width: 768px) {
+            header.nav-header {
+                padding: 0 1.5rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .meta-strip {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+            .portal-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY TOP HEADER WITH TAB ACTION SYSTEM -->
+    <header class="nav-header">
+        <div class="logo">GenAI Mastery</div>
+        <div class="tab-container">
+            <a href="syllabus/" class="tab-btn">Syllabus</a>
+            <a href="notes/" class="tab-btn">Notes</a>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main>
+        <div class="hero-section">
+            <span class="badge-pill">Enterprise Executive Program</span>
+            <h1>Generative AI Mastery for Product Managers & Business Professionals</h1>
+            <p class="hero-subtitle">
+                An intensive, framework-driven program designed to transform business leaders into highly technical AI strategists capable of building platforms, custom knowledge engines, and automated workflows.
+            </p>
+        </div>
+
+        <!-- STRUCTURAL PROGRAM METRICS -->
+        <div class="meta-strip">
+            <div class="meta-box">
+                <span>Program Duration</span>
+                <strong>5 Months Total</strong>
+            </div>
+            <div class="meta-box">
+                <span>Weekly Cadence</span>
+                <strong>3 Classes / Week</strong>
+            </div>
+            <div class="meta-box">
+                <span>Class Strategy</span>
+                <strong>2 Hours / Cohort</strong>
+            </div>
+        </div>
+
+        <!-- ROUTE ENTRY GRID PORTALS -->
+        <div class="portal-grid">
+            
+            <!-- PORTAL 1: SYLLABUS HUB ROUTE -->
+            <div class="portal-card">
+                <div>
+                    <h2>Interactive Syllabus</h2>
+                    <p>Dive deep into the structured 10-module pathway. Explore operational concepts spanning across custom RAG frameworks, automation loops, dynamic website architectures, and non-code MVP generation ecosystems.</p>
+                </div>
+                <div>
+                    <div class="nested-links">
+                        <span>Curriculum View:</span>
+                        <a href="syllabus/">View Full 5-Month Track &rarr;</a>
+                    </div>
+                    <a href="syllabus/" class="portal-btn">Explore Syllabus</a>
+                </div>
+            </div>
+
+            <!-- PORTAL 2: NOTES HUB ROUTE -->
+            <div class="portal-card">
+                <div>
+                    <h2>Knowledge Base & Notes</h2>
+                    <p>Review comprehensive live notes, functional deep dives, optimization blueprints, and logical structures parsed out across every dedicated technical milestone.</p>
+                </div>
+                <div>
+                    <div class="nested-links">
+                        <span>Quick Access First Session:</span>
+                        <a href="notes/class_1/">Class 1 Notes: Introduction to GenAI &rarr;</a>
+                    </div>
+                    <a href="notes/" class="portal-btn" style="background: linear-gradient(135deg, #475569 0%, #334155 100%); border: 1px solid var(--border-color);">Browse Notes Archive</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

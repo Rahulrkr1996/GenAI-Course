@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI Mastery for Product Managers & Business Professionals</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --sidebar-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --border-color: #334155;
+            --badge-concepts: #0369a1;
+            --badge-hands-on: #15803d;
+            --shadow: 0 10px 15px -3px rbg(0 0 0 / 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 320px;
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        nav h3 {
+            color: #fff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 0.4rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding-left: 1rem;
+        }
+
+        /* Main Content Container */
+        main {
+            margin-left: 320px;
+            max-width: 1000px;
+            width: calc(100% - 320px);
+            padding: 4rem 3rem;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 1rem;
+            margin-bottom: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .meta-item h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-item p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Module Sections */
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        section:hover {
+            border-color: #475569;
+        }
+
+        .module-tag {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        /* Split layouts for Concepts vs Hands-on */
+        .content-split {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .split-col {
+            flex: 1;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .column-header h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge.concepts { background-color: rgba(3, 105, 161, 0.3); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.2); }
+        .badge.hands-on { background-color: rgba(21, 128, 61, 0.3); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .split-col.concepts-col ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: -2px;
+        }
+
+        .split-col.hands-on-col ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Capstone Project Cards Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .project-number {
+            background: var(--accent-gradient);
+            color: #fff;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .project-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Final Outcomes styling */
+        .outcomes-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .outcomes-list li {
+            background-color: rgba(56, 189, 248, 0.03);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            padding: 1.2rem 1.2rem 1.2rem 2.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0;
+        }
+
+        .outcomes-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 1rem;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.1rem;
+            top: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .content-split {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .project-grid, .outcomes-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            nav {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 2rem 1rem;
+            }
+            header {
+                padding: 2rem 1.5rem;
+            }
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3>Syllabus Modules</h3>
+        <ul>
+            <li><a href="#module1">1. AI Foundations</a></li>
+            <li><a href="#module2">2. Productivity Systems</a></li>
+            <li><a href="#module3">3. Content Creation</a></li>
+            <li><a href="#module4">4. Website Building</a></li>
+            <li><a href="#module5">5. Software Development</a></li>
+            <li><a href="#module6">6. Automation & Agents</a></li>
+            <li><a href="#module7">7. RAG & Knowledge</a></li>
+            <li><a href="#module8">8. Product Management</a></li>
+            <li><a href="#module9">9. Business Growth</a></li>
+            <li><a href="#capstone">10. Capstone Projects</a></li>
+            <li><a href="#outcomes">Final Outcomes</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Generative AI Mastery for Product Managers & Business Professionals</h1>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <h4>Duration</h4>
+                    <p>5 Months</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Frequency</h4>
+                    <p>3 Classes / Week</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Class Length</h4>
+                    <p>2 Hours / Class</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- MODULE 1 -->
+        <section id="module1">
+            <span class="module-tag">Module 01</span>
+            <h2>AI Foundations & Prompting Through Practical Exercises</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>AI Fundamentals</li>
+                        <li>LLMs & Context Windows</li>
+                        <li>Prompt Engineering</li>
+                        <li>Model Comparison</li>
+                        <li>AI Strengths & Limitations</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Create AI-generated reports</li>
+                        <li>Create AI-generated meeting summaries</li>
+                        <li>Build a personal prompt library</li>
+                        <li>Build a research workflow</li>
+                        <li>Create reusable AI templates</li>
+                        <li>AI-assisted decision-making exercises</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section id="module2">
+            <span class="module-tag">Module 02</span>
+            <h2>AI Productivity Systems</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>AI for Knowledge Work</li>
+                        <li>Research Workflows</li>
+                        <li>Content Systems</li>
+                        <li>Information Management</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Generate professional emails</li>
+                        <li>Generate presentations</li>
+                        <li>Create business reports</li>
+                        <li>Create product requirement documents (PRDs)</li>
+                        <li>Create user stories</li>
+                        <li>Build a personal knowledge assistant</li>
+                        <li>Build a meeting-to-action-item workflow</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section id="module3">
+            <span class="module-tag">Module 03</span>
+            <h2>AI Content Creation Suite</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Text Generation</li>
+                        <li>Image Generation</li>
+                        <li>Video Generation</li>
+                        <li>Content Strategy</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Generate marketing content</li>
+                        <li>Create LinkedIn posts</li>
+                        <li>Create blogs</li>
+                        <li>Generate social media campaigns</li>
+                        <li>Create AI images</li>
+                        <li>Create AI videos</li>
+                        <li>Build a complete content pipeline</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section id="module4">
+            <span class="module-tag">Module 04</span>
+            <h2>AI Website Building</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>How Websites Work</li>
+                        <li>Frontend & Backend Basics</li>
+                        <li>Hosting & Deployment</li>
+                        <li>APIs</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Build a landing page</li>
+                        <li>Build a portfolio website</li>
+                        <li>Build a business website</li>
+                        <li>Deploy websites live</li>
+                        <li>Connect web forms</li>
+                        <li>Build an AI-assisted dashboard</li>
+                        <li>Create a complete business website from scratch</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 5 -->
+        <section id="module5">
+            <span class="module-tag">Module 05</span>
+            <h2>AI-Assisted Software Development</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Software Development Lifecycle (SDLC)</li>
+                        <li>Understanding Code with AI</li>
+                        <li>Debugging with AI</li>
+                        <li>Product Development Workflows</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Modify website features using AI</li>
+                        <li>Fix code bugs using AI</li>
+                        <li>Connect APIs</li>
+                        <li>Build simple web applications</li>
+                        <li>Build internal productivity tools</li>
+                        <li>Build MVPs without coding expertise</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 6 -->
+        <section id="module6">
+            <span class="module-tag">Module 06</span>
+            <h2>Automation & AI Agents</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Automation Fundamentals</li>
+                        <li>AI Agents</li>
+                        <li>Agentic Workflows</li>
+                        <li>Business Automation</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Create workflow automations</li>
+                        <li>Automate email processing</li>
+                        <li>Automate content publishing</li>
+                        <li>Build lead capture workflows</li>
+                        <li>Build business automation systems</li>
+                        <li>Create AI-driven operational workflows</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 7 -->
+        <section id="module7">
+            <span class="module-tag">Module 07</span>
+            <h2>RAG & Knowledge Systems</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Knowledge Retrieval</li>
+                        <li>Vector Databases</li>
+                        <li>RAG Fundamentals</li>
+                        <li>Enterprise AI Systems</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Create a PDF chatbot</li>
+                        <li>Create a company knowledge assistant</li>
+                        <li>Create a document search system</li>
+                        <li>Build a policy assistant</li>
+                        <li>Build a personal knowledge base</li>
+                        <li>Build an internal AI helpdesk</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 8 -->
+        <section id="module8">
+            <span class="module-tag">Module 08</span>
+            <h2>AI for Product Management</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Product Discovery</li>
+                        <li>Roadmapping</li>
+                        <li>User Research</li>
+                        <li>Analytics</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Create PRDs with AI</li>
+                        <li>Analyze customer feedback</li>
+                        <li>Generate product roadmaps</li>
+                        <li>Prioritize features dynamically</li>
+                        <li>Analyze competitors</li>
+                        <li>Create high-level product strategies</li>
+                        <li>Build structured product planning workflows</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 9 -->
+        <section id="module9">
+            <span class="module-tag">Module 09</span>
+            <h2>Business Growth with AI</h2>
+            <div class="content-split">
+                <div class="split-col concepts-col">
+                    <div class="column-header">
+                        <span class="badge concepts">Concepts</span>
+                        <h3>Theoretical Core</h3>
+                    </div>
+                    <ul>
+                        <li>Marketing Automation</li>
+                        <li>Lead Generation</li>
+                        <li>Personal Branding</li>
+                        <li>Business Operations</li>
+                    </ul>
+                </div>
+                <div class="split-col hands-on-col">
+                    <div class="column-header">
+                        <span class="badge hands-on">Hands-On</span>
+                        <h3>Practical Application</h3>
+                    </div>
+                    <ul>
+                        <li>Create targeted marketing campaigns</li>
+                        <li>Generate high-converting sales assets</li>
+                        <li>Build automated lead generation systems</li>
+                        <li>Create intelligent customer outreach systems</li>
+                        <li>Build AI-powered business workflows</li>
+                        <li>Create corporate executive dashboards</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAPSTONE PROJECTS -->
+        <section id="capstone" style="border-color: rgba(56, 189, 248, 0.4);">
+            <span class="module-tag" style="color: #fff;">Module 10</span>
+            <h2>Capstone Projects</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Apply your cumulative skills to build end-to-end solutions that demonstrate mastery of generative AI tools, code generation, RAG, and multi-agent systems.</p>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-number">01</div>
+                    <div>
+                        <h3>Personal AI Assistant</h3>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">02</div>
+                    <div>
+                        <h3>AI Research Assistant</h3>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">03</div>
+                    <div>
+                        <h3>Business Knowledge Assistant</h3>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">04</div>
+                    <h3>Automated Content Engine</h3>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">05</div>
+                    <div>
+                        <h3>AI-Powered Business Website</h3>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">06</div>
+                    <div>
+                        <h3>End-to-End AI Product Launch</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL OUTCOMES -->
+        <section id="outcomes" style="background: linear-gradient(180deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); border-top: 4px solid var(--accent-color);">
+            <h2>Final Graduate Outcomes</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">By the end of this intensive 5-month program, participants will possess the structural capabilities to independently deploy the following frameworks:</p>
+            
+            <ul class="outcomes-list">
+                <li>Use all major AI tools effectively across enterprise environments.</li>
+                <li>Conduct high-fidelity professional research backed by AI systems.</li>
+                <li>Synthesize context into optimized content, corporate presentations, and strategic reports.</li>
+                <li>Build live landing pages, portfolios, and functional MVPs without standalone developers.</li>
+                <li>Deconstruct and manage modern software development life cycles alongside AI code assistance.</li>
+                <li>Architect robust, multi-stage workflow automations and intelligent AI agents.</li>
+                <li>Build proprietary RAG-based organizational knowledge systems and chatbots.</li>
+                <li>Apply rigorous framework-driven AI solutions directly into active product management layers.</li>
+                <li>Conceptualize, architect, and execute complete AI-powered business launches entirely independently.</li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>
