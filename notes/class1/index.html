@@ -1,487 +1,1024 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 1 Notes: Introduction to Generative AI & Modern AI Systems</title>
-    <link rel="icon" type="image/x-icon" href="https://www.rachna-ai.in/assets/logo_trans.png">
-    <style>
-        :root {
-            --bg-color: #f8fafc;
-            --text-color: #334155;
-            --header-bg: #1e293b;
-            --header-text: #ffffff;
-            --card-bg: #ffffff;
-            --accent-color: #2563eb;
-            --accent-light: #eff6ff;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 1 — Introduction to Generative AI & Modern AI Systems · GenAI Mastery</title>
+  <link rel="icon" type="image/x-icon" href="https://www.rachna-ai.in/assets/logo_trans.png">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <!-- Shared site styles -->
+  <link rel="stylesheet" href="../../genai-mastery-common.css">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            display: flex;
-        }
+  <style>
+    /* ================================================================
+       Class 1 Notes — Page-specific styles
+       Inherits: design tokens, header, footer, breadcrumbs from common
+       ================================================================ */
 
-        /* Sidebar Navigation */
-        nav {
-            width: 280px;
-            height: 100vh;
-            background-color: var(--header-bg);
-            color: #94a3b8;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
-            padding: 2rem 1rem;
-        }
+    body {
+      padding-top: var(--nav-h);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        nav h3 {
-            color: #fff;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            padding-left: 0.5rem;
-        }
+    .page-wrap {
+      flex: 1;
+      display: flex;
+    }
 
-        nav ul {
-            list-style: none;
-        }
+    /* ── LEFT TOC RAIL ─────────────────────────────────────────────── */
+    .toc-rail {
+      position: sticky;
+      top: var(--nav-h);
+      align-self: flex-start;
+      width: 220px;
+      flex-shrink: 0;
+      padding: 3rem 0 3rem 2.5rem;
+      max-height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
 
-        nav li {
-            margin-bottom: 0.5rem;
-        }
+    .toc-rail-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 1rem;
+    }
 
-        nav a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.95rem;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            transition: all 0.2s;
-        }
+    .toc-list {
+      list-style: none;
+      border-left: 1.5px solid var(--border);
+    }
 
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
+    .toc-list li a {
+      display: block;
+      padding: 0.3rem 0 0.3rem 0.875rem;
+      font-size: 0.8rem;
+      color: var(--faint);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-left-color 0.15s;
+      border-left: 2px solid transparent;
+      margin-left: -1.5px;
+    }
 
-        /* Main Content Container */
-        main {
-            margin-left: 280px;
-            max-width: 900px;
-            width: calc(100% - 280px);
-            padding: 3rem 2rem;
-        }
+    .toc-list li a:hover {
+      color: var(--navy);
+      border-left-color: var(--navy);
+    }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 2.5rem;
-            border-radius: 0.75rem;
-            margin-bottom: 2.5rem;
-            box-shadow: var(--shadow);
-        }
+    /* ── MAIN CONTENT ──────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 3.5rem 3rem 6rem 3rem;
+      max-width: 780px;
+    }
 
-        header h1 {
-            font-size: 2.25rem;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-        }
+    /* ── PAGE HEADER ───────────────────────────────────────────────── */
+    .class-header {
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
+    .class-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
 
-        /* Content Sections */
-        section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: var(--shadow);
-            scroll-margin-top: 2rem;
-        }
+    .class-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--navy-lt);
+      border: 1px solid rgba(30, 58, 138, 0.16);
+      padding: 0.3rem 0.7rem;
+      border-radius: 5px;
+    }
 
-        h2 {
-            color: #0f172a;
-            font-size: 1.75rem;
-            margin-bottom: 1.25rem;
-            border-bottom: 2px solid var(--accent-light);
-            padding-bottom: 0.5rem;
-        }
+    .class-badge::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--navy);
+    }
 
-        h3 {
-            color: #1e293b;
-            font-size: 1.25rem;
-            margin: 1.5rem 0 0.75rem 0;
-        }
+    .print-btn {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border-hi);
+      border-radius: 6px;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s;
+    }
 
-        p {
-            margin-bottom: 1rem;
-        }
+    .print-btn:hover {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--navy);
+    }
 
-        /* Lists styling */
-        ul {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-        }
+    .class-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
 
-        li {
-            margin-bottom: 0.5rem;
-        }
+    .class-header .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
 
-        /* Highlight Boxes / Callouts */
-        .callout {
-            background-color: var(--accent-light);
-            border-left: 4px solid var(--accent-color);
-            padding: 1rem 1.25rem;
-            border-radius: 0 0.375rem 0.375rem 0;
-            margin: 1.5rem 0;
-            font-style: italic;
-        }
+    /* ── SECTION HEADINGS ──────────────────────────────────────────── */
+    .notes-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 3.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
 
-        .example-box {
-            background-color: #f1f5f9;
-            border: 1px dashed #cbd5e1;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            font-family: monospace;
-            font-size: 0.95rem;
-        }
+    .notes-body h2 .section-num {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 168, 67, 0.1);
+      border: 1px solid rgba(212, 168, 67, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      position: relative;
+      top: -1px;
+    }
 
-        /* Model Comparison Grid */
-        .model-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
+    .notes-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
 
-        .model-card {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-        }
+    /* ── BODY TEXT ─────────────────────────────────────────────────── */
+    .notes-body p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
 
-        .model-card h3 {
-            margin-top: 0;
-            color: var(--accent-color);
-        }
+    .notes-body strong { color: var(--ink); font-weight: 600; }
+    .notes-body em { color: var(--ink-2); }
 
-        .badge-pro {
-            background-color: #dcfce7;
-            color: #15803d;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
+    .notes-body ul,
+    .notes-body ol {
+      padding-left: 1.35rem;
+      margin-bottom: 1.25rem;
+    }
 
-        /* Key Takeaways layout */
-        .takeaways-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
+    .notes-body li {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.4rem;
+    }
 
-        .takeaways-list li {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 0.75rem;
-        }
+    .notes-body li strong { color: var(--ink); }
 
-        .takeaways-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #16a34a;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+    .notes-body code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+      color: var(--navy);
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            nav {
-                width: 100%;
-                height: auto;
-                position: static;
-                padding: 1rem;
-            }
-            main {
-                margin-left: 0;
-                width: 100%;
-                padding: 1.5rem 1rem;
-            }
+    .notes-body hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 3.5rem 0;
+    }
+
+    /* ── CALLOUT BOXES ─────────────────────────────────────────────── */
+    .callout {
+      border-radius: 0 10px 10px 0;
+      padding: 1.1rem 1.4rem;
+      margin: 1.5rem 0;
+      border-left: 3px solid var(--navy);
+      background: linear-gradient(135deg, rgba(30,58,138,0.03) 0%, rgba(30,58,138,0.06) 100%);
+      border-top: 1px solid rgba(30,58,138,0.1);
+      border-right: 1px solid rgba(30,58,138,0.1);
+      border-bottom: 1px solid rgba(30,58,138,0.1);
+    }
+
+    .callout.warn {
+      border-left-color: #F59E0B;
+      background: rgba(245, 158, 11, 0.03);
+      border-top-color: rgba(245, 158, 11, 0.12);
+      border-right-color: rgba(245, 158, 11, 0.12);
+      border-bottom-color: rgba(245, 158, 11, 0.12);
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-2);
+    }
+
+    /* ── EXAMPLE / CODE BLOCKS ─────────────────────────────────────── */
+    .example-block {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-hi);
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .example-block-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .example-block-header .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+    }
+
+    .example-block.bad .example-block-header {
+      background: rgba(239,68,68,0.06);
+      color: #B91C1C;
+      border-bottom: 1px solid rgba(239,68,68,0.12);
+    }
+
+    .example-block.bad .example-block-header .dot { background: #EF4444; }
+
+    .example-block.bad .example-block-content {
+      background: rgba(239,68,68,0.02);
+      color: var(--muted);
+      padding: 1rem 1.1rem;
+      white-space: pre-line;
+    }
+
+    .example-block.good .example-block-header {
+      background: rgba(16,185,129,0.06);
+      color: #065F46;
+      border-bottom: 1px solid rgba(16,185,129,0.12);
+    }
+
+    .example-block.good .example-block-header .dot { background: #10B981; }
+
+    .example-block.good .example-block-content {
+      background: rgba(16,185,129,0.02);
+      color: var(--ink-2);
+      padding: 1rem 1.1rem;
+      white-space: pre-line;
+    }
+
+    .example-block.neutral .example-block-header {
+      background: var(--surface-2);
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .example-block.neutral .example-block-header .dot { background: var(--faint); }
+
+    .example-block.neutral .example-block-content {
+      background: var(--surface-2);
+      color: var(--ink-2);
+      padding: 1rem 1.1rem;
+      white-space: pre-line;
+    }
+
+    /* ── MODEL COMPARISON CARDS ────────────────────────────────────── */
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .model-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.35rem;
+    }
+
+    .model-card .model-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .model-card .model-row {
+      margin-bottom: 0.5rem;
+    }
+
+    .model-card .model-row .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--faint);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .model-card .model-row p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .model-card .model-limit {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--faint);
+      font-style: italic;
+    }
+
+    /* ── ANATOMY LIST ──────────────────────────────────────────────── */
+    .anatomy-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .anatomy-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.875rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.875rem 1.1rem;
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .anatomy-list li .step-num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--navy);
+      flex-shrink: 0;
+      min-width: 1.5rem;
+    }
+
+    /* ── WORKFLOW STEPS ────────────────────────────────────────────── */
+    .workflow-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .workflow-step {
+      background: var(--navy-lt);
+      border: 1px solid rgba(30,58,138,0.16);
+      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .workflow-arrow {
+      color: var(--faint);
+      font-size: 0.9rem;
+    }
+
+    /* ── PRO TIP BADGE ─────────────────────────────────────────────── */
+    .badge-pro {
+      display: inline-block;
+      background: rgba(212,168,67,0.12);
+      color: #92620A;
+      border: 1px solid rgba(212,168,67,0.25);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 0.4rem;
+    }
+
+    /* ── EXERCISES ─────────────────────────────────────────────────── */
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .exercise-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .exercise-item .ex-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--border-hi);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 2rem;
+    }
+
+    .exercise-item .ex-body .ex-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .exercise-item .ex-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── TAKEAWAYS ─────────────────────────────────────────────────── */
+    .takeaways-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .takeaways-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .takeaways-list li::before {
+      content: '✓';
+      color: #10B981;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .takeaways-list li strong { color: var(--ink); }
+
+    /* ── PRINT ─────────────────────────────────────────────────────── */
+    @media print {
+      body { padding-top: 0; background: #fff; }
+
+      .toc-rail,
+      .print-btn { display: none !important; }
+
+      .page-wrap { display: block; }
+      main { padding: 2rem 1.5rem; max-width: 100%; }
+
+      .class-header h1 { font-size: 2rem; }
+      .notes-body h2 { margin-top: 2.5rem; page-break-after: avoid; }
+      .notes-body h3 { page-break-after: avoid; }
+
+      .model-grid { grid-template-columns: repeat(3, 1fr); }
+      .model-card { break-inside: avoid; }
+
+      .anatomy-list li,
+      .exercise-item,
+      .callout,
+      .example-block { break-inside: avoid; }
+
+      .notes-body hr { margin: 2rem 0; }
+
+      @page {
+        margin: 2cm 2.5cm;
+        @top-right {
+          content: "GenAI Mastery — Class 1 Notes";
+          font-size: 8pt;
+          color: #94A3B8;
         }
-    </style>
+        @bottom-center {
+          content: counter(page);
+          font-size: 8pt;
+          color: #94A3B8;
+        }
+      }
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .toc-rail { display: none; }
+      main { padding: 3rem 2rem 5rem; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 2rem 1.25rem 4rem; }
+      .model-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <h3>Table of Contents</h3>
-        <ul>
-            <li><a href="#what-is-ai">What is AI?</a></li>
-            <li><a href="#generative-ai">What is Generative AI?</a></li>
-            <li><a href="#llms">Understanding LLMs</a></li>
-            <li><a href="#intelligence">Why LLMs Feel Intelligent</a></li>
-            <li><a href="#tokens">Understanding Tokens</a></li>
-            <li><a href="#context-window">Context Window</a></li>
-            <li><a href="#prompting">Why Prompting Matters</a></li>
-            <li><a href="#anatomy">Anatomy of a Good Prompt</a></li>
-            <li><a href="#models">Different AI Models</a></li>
-            <li><a href="#hallucinations">Hallucinations</a></li>
-            <li><a href="#workflows">Advanced Workflows</a></li>
-            <li><a href="#exercises">Practical Exercises</a></li>
-            <li><a href="#takeaways">Key Takeaways</a></li>
-        </ul>
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="../../" class="logo-mark">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13 L8 3 L13 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 9.5 L11 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="../../" class="logo-text">GenAI Mastery</a>
+      <div class="header-divider"></div>
+      <a href="https://www.rachna-ai.in" target="_blank" class="studio-link">Rachna AI Studio</a>
+    </div>
+    <nav class="site-nav">
+      <a href="../../syllabus/">Syllabus</a>
+      <a href="../" class="active">Notes</a>
     </nav>
+  </header>
 
+  <!-- ── PAGE BODY ── -->
+  <div class="page-wrap">
+
+    <!-- Left ToC Rail -->
+    <aside class="toc-rail print-hide" aria-label="Page contents">
+      <p class="toc-rail-label">On this page</p>
+      <ul class="toc-list">
+        <li><a href="#what-is-ai">What is AI?</a></li>
+        <li><a href="#generative-ai">Generative AI</a></li>
+        <li><a href="#llms">LLMs Explained</a></li>
+        <li><a href="#intelligence">Why LLMs Feel Intelligent</a></li>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#context-window">Context Window</a></li>
+        <li><a href="#prompting">Why Prompting Matters</a></li>
+        <li><a href="#anatomy">Anatomy of a Prompt</a></li>
+        <li><a href="#models">AI Model Comparison</a></li>
+        <li><a href="#hallucinations">Hallucinations</a></li>
+        <li><a href="#workflows">Advanced Workflows</a></li>
+        <li><a href="#exercises">Exercises</a></li>
+        <li><a href="#takeaways">Key Takeaways</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main article -->
     <main>
-        <header>
-            <p>Class 1 Notes</p>
-            <h1>Introduction to Generative AI & Modern AI Systems</h1>
-        </header>
 
-        <!-- WHAT IS AI -->
-        <section id="what-is-ai">
-            <h2>What is Artificial Intelligence?</h2>
-            <p>Artificial Intelligence (AI) refers to computer systems that can perform tasks that traditionally required human intelligence.</p>
-            <p><strong>Examples include:</strong></p>
-            <ul>
-                <li>Understanding language & summarizing documents</li>
-                <li>Writing content & creating software code</li>
-                <li>Answering questions & analyzing data</li>
-                <li>Generating images</li>
-            </ul>
-            <div class="callout">
-                Many people think AI is "thinking" like humans. This is not true. Modern AI is primarily a prediction system that has become extremely good at understanding patterns.
+      <nav class="breadcrumbs print-hide" aria-label="Breadcrumb">
+        <a href="../../">Home</a>
+        <span class="sep">›</span>
+        <a href="../">Notes</a>
+        <span class="sep">›</span>
+        <span>Class 1</span>
+      </nav>
+
+      <header class="class-header">
+        <div class="class-meta-row">
+          <span class="class-badge">Class 01</span>
+          <a href="#" onclick="window.print(); return false;" class="print-btn print-hide">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6V2h8v4M4 11H2V6h12v5h-2M4 11v3h8v-3"/>
+            </svg>
+            Print / Save PDF
+          </a>
+        </div>
+        <h1>Introduction to Generative AI &amp;<br>Modern AI Systems</h1>
+        <p class="subtitle">Deconstruct how AI models actually work — from prediction mechanics and tokens to context windows, prompt anatomy, and practical workflows.</p>
+      </header>
+
+      <!-- Article Body -->
+      <div class="notes-body">
+
+        <!-- ── SECTION 1 ── -->
+        <h2 id="what-is-ai">
+          <span class="section-num">01</span>
+          What is Artificial Intelligence?
+        </h2>
+
+        <p>Artificial Intelligence (AI) refers to computer systems designed to perform tasks that traditionally required human intelligence.</p>
+
+        <p><strong>Examples include:</strong> understanding and summarizing language, writing content and code, answering questions, analyzing data, and generating images.</p>
+
+        <div class="callout">
+          <p>Many people think AI is "thinking" like humans. This is not accurate. Modern AI is primarily a <strong>prediction system</strong> that has become extremely sophisticated at recognizing patterns.</p>
+        </div>
+
+        <p>Think of AI as <strong>"a very knowledgeable assistant that processes enormous amounts of information quickly."</strong></p>
+
+        <ul>
+          <li>AI is not magic.</li>
+          <li>AI is not conscious.</li>
+          <li>AI does not understand the world the same way humans do.</li>
+          <li>AI predicts patterns based on what it learned during training.</li>
+        </ul>
+
+        <hr>
+
+        <!-- ── SECTION 2 ── -->
+        <h2 id="generative-ai">
+          <span class="section-num">02</span>
+          What is Generative AI?
+        </h2>
+
+        <p>Generative AI is the category of AI that can <strong>create new content</strong> — text, images, video, audio, presentations, and code.</p>
+        <p>Popular tools: <em>ChatGPT, Claude, Gemini, Midjourney, Runway, Veo.</em></p>
+
+        <h3>Traditional Software vs. Generative AI</h3>
+        <p>Traditional software follows strict, predefined rules — output is always predictable:</p>
+
+        <div class="example-block neutral">
+          <div class="example-block-header">
+            <span class="dot"></span> Traditional Software
+          </div>
+          <div class="example-block-content">Calculator: Input 2 + 2  →  Output: 4 (always)</div>
+        </div>
+
+        <p>Generative AI creates outputs dynamically — each response can be unique:</p>
+
+        <div class="example-block good">
+          <div class="example-block-header">
+            <span class="dot"></span> Generative AI
+          </div>
+          <div class="example-block-content">Prompt: "Write a professional email requesting a meeting."
+Output: Dynamically generated text — unique every time</div>
+        </div>
+
+        <hr>
+
+        <!-- ── SECTION 3 ── -->
+        <h2 id="llms">
+          <span class="section-num">03</span>
+          Understanding Large Language Models (LLMs)
+        </h2>
+
+        <p>LLM stands for <strong>Large Language Model</strong> (e.g., ChatGPT, Claude, Gemini). An LLM is trained on enormous volumes of text to learn language patterns, writing styles, conceptual relationships, and problem-solving structures.</p>
+
+        <div class="callout">
+          <p><strong>Crucial concept:</strong> An LLM is not retrieving answers from a giant database. It is predicting what sequence of words is most statistically likely to come next.</p>
+        </div>
+
+        <p><strong>Analogy:</strong> If you say <em>"Peanut Butter and ______"</em>, most people instinctively predict <em>"Jelly"</em>. LLMs work the same way — but at a massive scale, across all of human written language.</p>
+
+        <hr>
+
+        <!-- ── SECTION 4 ── -->
+        <h2 id="intelligence">
+          <span class="section-num">04</span>
+          Why LLMs Feel Intelligent
+        </h2>
+
+        <p>Because LLMs can understand complex instructions, follow context across long conversations, generate structured data, and simulate domain expertise — they often appear deeply intelligent.</p>
+
+        <p>However, they do not "know" information the way humans do. They generate <strong>statistically likely responses</strong> based on patterns in their training data. The intelligence is real in its utility, but the mechanism is fundamentally different from human cognition.</p>
+
+        <hr>
+
+        <!-- ── SECTION 5 ── -->
+        <h2 id="tokens">
+          <span class="section-num">05</span>
+          Understanding Tokens
+        </h2>
+
+        <p>AI models do not read information as whole words — they process <strong>tokens</strong>. A token can be a single word, part of a word, a number, or punctuation mark.</p>
+
+        <div class="example-block neutral">
+          <div class="example-block-header">
+            <span class="dot"></span> Example
+          </div>
+          <div class="example-block-content">"Artificial Intelligence is amazing."
+→ Broken into multiple tokens behind the scenes</div>
+        </div>
+
+        <p>Every interaction is split into:</p>
+        <ul>
+          <li><strong>Input Tokens:</strong> Your prompt and any context provided.</li>
+          <li><strong>Output Tokens:</strong> The AI's generated response.</li>
+        </ul>
+        <p>Most AI pricing and infrastructure costs are calculated directly by the number of tokens consumed per request.</p>
+
+        <hr>
+
+        <!-- ── SECTION 6 ── -->
+        <h2 id="context-window">
+          <span class="section-num">06</span>
+          Context Window
+        </h2>
+
+        <p>The Context Window is the total volume of information a model can "hold active" during a single conversation or task.</p>
+
+        <div class="callout">
+          <p>Imagine a whiteboard. Everything written on it is visible to the AI at once. When the whiteboard fills up, older information is compressed or lost.</p>
+        </div>
+
+        <p><strong>A larger context window allows the AI to:</strong></p>
+        <ul>
+          <li>Analyze massive documents and large codebases.</li>
+          <li>Maintain longer, more coherent multi-turn conversations.</li>
+          <li>Remember more complex project specifications simultaneously.</li>
+        </ul>
+        <p>Context size directly affects output quality — more relevant context produces far more accurate, targeted results.</p>
+
+        <hr>
+
+        <!-- ── SECTION 7 ── -->
+        <h2 id="prompting">
+          <span class="section-num">07</span>
+          Why Prompting Matters
+        </h2>
+
+        <p>The quality of AI output is directly proportional to the quality and specificity of your prompt.</p>
+
+        <div class="example-block bad">
+          <div class="example-block-header">
+            <span class="dot"></span> Poor Prompt — Too Vague
+          </div>
+          <div class="example-block-content">"Create a website."</div>
+        </div>
+
+        <div class="example-block good">
+          <div class="example-block-header">
+            <span class="dot"></span> Good Prompt — Context + Structure
+          </div>
+          <div class="example-block-content">"Create a modern landing page for an AI consulting company.
+Use a professional design. Include a hero section, services
+section, testimonials, and a contact form."</div>
+        </div>
+
+        <p>The good prompt works because it establishes <strong>context, clear objectives, structural constraints, and format expectations</strong> — giving the model exactly what it needs to generate a useful result.</p>
+
+        <hr>
+
+        <!-- ── SECTION 8 ── -->
+        <h2 id="anatomy">
+          <span class="section-num">08</span>
+          Anatomy of a Good Prompt
+        </h2>
+
+        <p>A strong, professional-grade prompt contains five essential elements:</p>
+
+        <ol class="anatomy-list">
+          <li>
+            <span class="step-num">1</span>
+            <span><strong>Role</strong> — "Act as a Senior Product Manager."</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span><strong>Goal</strong> — "Create a Product Requirements Document."</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span><strong>Context</strong> — "The application is for college students ordering food."</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span><strong>Constraints</strong> — "Keep the document under two pages."</span>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <span><strong>Output Format</strong> — "Return the result in a markdown table."</span>
+          </li>
+        </ol>
+
+        <hr>
+
+        <!-- ── SECTION 9 ── -->
+        <h2 id="models">
+          <span class="section-num">09</span>
+          Different AI Models &amp; Their Strengths
+        </h2>
+
+        <p>No single model rules every use case. Different architectures have distinct strengths — choose intentionally based on your task.</p>
+
+        <div class="model-grid">
+          <div class="model-card">
+            <div class="model-name">ChatGPT</div>
+            <div class="model-row">
+              <span class="label">Best For</span>
+              <p>General workflows, coding, complex logical reasoning, and business tasks.</p>
             </div>
-            <p>Think of AI as <strong>"a very knowledgeable assistant that can process huge amounts of information quickly."</strong></p>
-            <ul>
-                <li>AI is not magic.</li>
-                <li>AI is not conscious.</li>
-                <li>AI does not understand the world the same way humans do.</li>
-                <li>AI predicts patterns based on what it has learned during training.</li>
-            </ul>
-        </section>
-
-        <!-- GENERATIVE AI -->
-        <section id="generative-ai">
-            <h2>What is Generative AI?</h2>
-            <p>Generative AI is a category of AI that can create <strong>new content</strong> such as text, images, videos, audio, presentations, and software code.</p>
-            <p>Popular tools include: <em>ChatGPT, Claude, Gemini, Midjourney, Runway, and Veo.</em></p>
-            
-            <h3>Traditional Software vs. Generative AI</h3>
-            <p>Traditional software follows predefined, strict rules:</p>
-            <div class="example-box">
-                <strong>Calculator App:</strong><br>
-                Input: 2 + 2 <br>
-                Output: 4 (Always predictable)
+            <div class="model-row">
+              <span class="label">Strengths</span>
+              <p>Top-tier reasoning, robust tool ecosystem, consistent output quality.</p>
             </div>
-            <p>Generative AI creates outputs dynamically based on instructions:</p>
-            <div class="example-box">
-                <strong>AI Prompt:</strong><br>
-                "Write a professional email requesting a meeting."<br>
-                Output: Dynamically generated text (May be unique every time)
+            <p class="model-limit">Can occasionally hallucinate without strict bounds.</p>
+          </div>
+          <div class="model-card">
+            <div class="model-name">Claude</div>
+            <div class="model-row">
+              <span class="label">Best For</span>
+              <p>Creative writing, heavy document analysis, long-form content, and deep reasoning.</p>
             </div>
-        </section>
-
-        <!-- UNDERSTANDING LLMS -->
-        <section id="llms">
-            <h2>Understanding Large Language Models (LLMs)</h2>
-            <p>LLM stands for Large Language Model (e.g., ChatGPT, Claude, Gemini). An LLM is trained on enormous amounts of text to learn language patterns, writing styles, conceptual relationships, and problem-solving structures.</p>
-            <div class="callout">
-                <strong>Crucial Concept:</strong> An LLM is not retrieving answers from a giant database. It is predicting what sequence of words is most likely to come next.
+            <div class="model-row">
+              <span class="label">Strengths</span>
+              <p>Highly nuanced writing tone, massive context windows, careful analysis.</p>
             </div>
-            <p><strong>Example:</strong> If you say <em>"Peanut Butter and ______"</em>, most humans instinctively predict <em>"Jelly"</em>. The model works similarly, but on a massive scale with highly sophisticated pattern recognition.</p>
-        </section>
-
-        <!-- WHY LLMS FEEL INTELLIGENT -->
-        <section id="intelligence">
-            <h2>Why LLMs Feel Intelligent</h2>
-            <p>Because LLMs can understand complex instructions, follow context, generate structured data, and simulate domain expertise, they often appear deeply intelligent.</p>
-            <p>However, they do not "know" information the way humans do. Instead, they generate <strong>statistically likely responses</strong>.</p>
-        </section>
-
-        <!-- UNDERSTANDING TOKENS -->
-        <section id="tokens">
-            <h2>Understanding Tokens</h2>
-            <p>AI models do not read information as whole words; they process <strong>tokens</strong>. A token can be a single word, part of a word, a number, or punctuation.</p>
-            <div class="example-box">
-                "Artificial Intelligence is amazing." &rarr; Broken into multiple tokens behind the scenes.
+            <p class="model-limit">Can sometimes be overly verbose in responses.</p>
+          </div>
+          <div class="model-card">
+            <div class="model-name">Gemini</div>
+            <div class="model-row">
+              <span class="label">Best For</span>
+              <p>Real-time research, web search, and Google Workspace integration.</p>
             </div>
-            <p>Every interaction is split into:</p>
-            <ul>
-                <li><strong>Input Tokens:</strong> Your prompt</li>
-                <li><strong>Output Tokens:</strong> The AI's response</li>
-            </ul>
-            <p>Most AI pricing and infrastructure usage is calculated directly by the number of tokens consumed.</p>
-        </section>
-
-        <!-- CONTEXT WINDOW -->
-        <section id="context-window">
-            <h2>Context Window</h2>
-            <p>The Context Window is the total volume of information a model can "remember" or hold active during a single conversation.</p>
-            <div class="callout">
-                Imagine a whiteboard. Everything written on it is visible to the AI. When the whiteboard becomes completely full, older information is compressed or forgotten.
+            <div class="model-row">
+              <span class="label">Strengths</span>
+              <p>Strong live web integration and multi-modal input handling.</p>
             </div>
-            <p><strong>A larger context window means the AI can:</strong></p>
-            <ul>
-                <li>Analyze massive documents and large codebases.</li>
-                <li>Maintain longer, more coherent conversations.</li>
-                <li>Remember more complex project specifications.</li>
-            </ul>
-            <p>Context size directly affects output quality: more relevant context yields far more accurate results.</p>
-        </section>
+            <p class="model-limit">Output quality can vary across specialized tasks.</p>
+          </div>
+        </div>
 
-        <!-- WHY PROMPTING MATTERS -->
-        <section id="prompting">
-            <h2>Why Prompting Matters</h2>
-            <p>The quality of an AI's output is highly dependent on the quality and specificity of your prompt.</p>
-            
-            <div class="example-box" style="border-left: 4px solid #ef4444;">
-                <strong>Poor Prompt:</strong><br>
-                "Create a website."
+        <hr>
+
+        <!-- ── SECTION 10 ── -->
+        <h2 id="hallucinations">
+          <span class="section-num">10</span>
+          Hallucinations
+        </h2>
+
+        <p>A hallucination occurs when an AI confidently generates completely incorrect or fabricated information — inventing statistics, research papers, legal citations, or company data that look entirely real.</p>
+
+        <div class="callout warn">
+          <p><strong>Rule of Thumb:</strong> AI can sound incredibly confident and still be completely wrong. Verification is always essential. <strong>Trust, but verify.</strong></p>
+        </div>
+
+        <hr>
+
+        <!-- ── SECTION 11 ── -->
+        <h2 id="workflows">
+          <span class="section-num">11</span>
+          Advanced AI Workflows
+        </h2>
+
+        <h3>1 — Iterative Prompting</h3>
+        <p>Beginners treat AI like a search engine (one-shot). Professionals use an iterative workflow:</p>
+
+        <div class="workflow-flow">
+          <span class="workflow-step">Prompt</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Review</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Improve</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Repeat</span>
+        </div>
+
+        <p><em>Example: Generate a PRD → Improve clarity → Add acceptance criteria → Format for executives.</em></p>
+
+        <h3>2 — Chain Prompting</h3>
+        <p>Break complex problems into small sequential steps. Instead of "Build a startup", run a structured chain:</p>
+        <ul>
+          <li><strong>Step 1:</strong> Identify target customer problems.</li>
+          <li><strong>Step 2:</strong> Generate solution variations.</li>
+          <li><strong>Step 3:</strong> Analyze competitor landscapes.</li>
+        </ul>
+
+        <h3>3 — Refinement Loops</h3>
+        <p>Repeatedly polish specific dimensions of the output: <em>"Improve readability" → "Maximize persuasiveness" → "Optimize for SEO."</em></p>
+
+        <h3>4 — Using AI as a Critic <span class="badge-pro">Pro Tip</span></h3>
+        <p>Don't just use AI to create — use it to challenge your work. Prompt it to act as an <strong>Investor, Customer, or cynical Critic</strong>:</p>
+
+        <div class="example-block neutral">
+          <div class="example-block-header">
+            <span class="dot"></span> Adversarial Prompts
+          </div>
+          <div class="example-block-content">"Review this proposal and ruthlessly identify all weaknesses."
+"Challenge every underlying assumption made in this document."</div>
+        </div>
+
+        <hr>
+
+        <!-- ── SECTION 12 ── -->
+        <h2 id="exercises">
+          <span class="section-num">12</span>
+          Practical Exercises
+        </h2>
+
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <div class="ex-num">1</div>
+            <div class="ex-body">
+              <div class="ex-title">The Baseline</div>
+              <p>Ask any AI: <em>"Act as a Product Manager and create a PRD for a food delivery application."</em> Observe the standard response depth without further guidance.</p>
             </div>
-            <div class="example-box" style="border-left: 4px solid #22c55e;">
-                <strong>Good Prompt:</strong><br>
-                "Create a modern landing page for an AI consulting company. Use a professional design, include a hero section, services section, testimonials, and a contact form."
+          </div>
+          <div class="exercise-item">
+            <div class="ex-num">2</div>
+            <div class="ex-body">
+              <div class="ex-title">The Iteration</div>
+              <p>Improve that result using iterative loops. Layer in technical constraints, localized user stories, and strict QA acceptance criteria one pass at a time.</p>
             </div>
-            <p>The good prompt works because it establishes <strong>context, clear objectives, constraints, and structural expectations</strong>.</p>
-        </section>
-
-        <!-- ANATOMY OF A PROMPT -->
-        <section id="anatomy">
-            <h2>Anatomy of a Good Prompt</h2>
-            <p>A strong, professional-grade prompt generally contains these five elements:</p>
-            <ol style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                <li style="margin-bottom: 1rem;"><strong>Role:</strong> "Act as a Senior Product Manager."</li>
-                <li style="margin-bottom: 1rem;"><strong>Goal:</strong> "Create a Product Requirements Document."</li>
-                <li style="margin-bottom: 1rem;"><strong>Context:</strong> "The application is intended for college students ordering food."</li>
-                <li style="margin-bottom: 1rem;"><strong>Constraints:</strong> "Keep the document under two pages."</li>
-                <li style="margin-bottom: 1rem;"><strong>Output Format:</strong> "Return the result in a markdown table format."</li>
-            </</ol>
-        </section>
-
-        <!-- DIFFERENT AI MODELS -->
-        <section id="models">
-            <h2>Different AI Models & Their Strengths</h2>
-            <p>No single model rules them all. Different architectures have unique strengths:</p>
-            
-            <div class="model-grid">
-                <div class="model-card">
-                    <h3>ChatGPT</h3>
-                    <p><strong>Best For:</strong> General workflows, coding, complex logical reasoning, and business tasks.</p>
-                    <p><strong>Strengths:</strong> Top-tier reasoning, robust tool ecosystem, consistent output.</p>
-                    <p><small><em>Limitation: Can occasionally hallucinate without strict bounds.</em></small></p>
-                </div>
-                <div class="model-card">
-                    <h3>Claude</h3>
-                    <p><strong>Best For:</strong> Creative writing, heavy document analysis, long-form content, and deep analysis.</p>
-                    <p><strong>Strengths:</strong> Highly nuanced writing tone, massive context windows.</p>
-                    <p><small><em>Limitation: Can sometimes be overly cautious or verbose.</em></small></p>
-                </div>
-                <div class="model-card">
-                    <h3>Gemini</h3>
-                    <p><strong>Best For:</strong> Real-time research, web search, and leveraging the Google workspace ecosystem.</p>
-                    <p><strong>Strengths:</strong> Strong web integration and multi-modal handling.</p>
-                    <p><small><em>Limitation: Output quality can sometimes vary across specialized tasks.</em></small></p>
-                </div>
+          </div>
+          <div class="exercise-item">
+            <div class="ex-num">3</div>
+            <div class="ex-body">
+              <div class="ex-title">The Critic</div>
+              <p>Feed the output back to the AI: <em>"Act as a senior VC investor and identify critical flaws or operational risks in this product."</em> Watch how effectively it critiques its own output.</p>
             </div>
-        </section>
+          </div>
+        </div>
 
-        <!-- HALLUCINATIONS -->
-        <section id="hallucinations">
-            <h2>Hallucinations</h2>
-            <p>A hallucination occurs when an AI confidently generates completely incorrect, fabricated information.</p>
-            <p>AI can easily invent statistics, research papers, legal citations, or company data that look entirely real.</p>
-            <div class="callout" style="border-left-color: #f59e0b; background-color: #fffbeb;">
-                <strong>Rule of Thumb:</strong> AI can sound incredibly confident and still be completely wrong. Verification is essential. <strong>Trust, but verify.</strong>
-            </div>
-        </section>
+        <hr>
 
-        <!-- ADVANCED WORKFLOWS -->
-        <section id="workflows">
-            <h2>Advanced AI Workflows</h2>
-            
-            <h3>1. Iterative Prompting</h3>
-            <p>Beginners treat AI like a search engine (one-shot). Professionals use an iterative workflow:</p>
-            <p style="text-align: center; font-weight: bold; color: var(--accent-color);">Prompt &rarr; Review &rarr; Improve &rarr; Repeat</p>
-            <p><em>Example sequence: Generate a PRD &rarr; Improve clarity &rarr; Add acceptance criteria &rarr; Format for executives.</em></p>
+        <!-- ── SECTION 13 ── -->
+        <h2 id="takeaways">
+          <span class="section-num">13</span>
+          Key Takeaways
+        </h2>
 
-            <h3>2. Chain Prompting</h3>
-            <p>Break complex, large problems down into small sequential steps. Instead of asking to "Build a startup", run structural steps:</p>
-            <ul>
-                <li><strong>Step 1:</strong> Identify target customer problems.</li>
-                <li><strong>Step 2:</strong> Generate solution variations.</li>
-                <li><strong>Step 3:</strong> Analyze competitor landscapes.</li>
-            </ul>
+        <ul class="takeaways-list">
+          <li>AI is a statistical prediction engine — not a conscious human brain.</li>
+          <li>Prompt quality directly dictates the utility and depth of outputs.</li>
+          <li>Select your model (ChatGPT, Claude, Gemini) intentionally based on the task.</li>
+          <li>Context management is your most valuable asset with modern models.</li>
+          <li>AI hallucinates confidently — never skip verification for factual claims.</li>
+          <li>Professionals win through <strong>Iterative Prompting, Chaining, and Refinement loops</strong>.</li>
+          <li>Always use AI symmetrically: as a brilliant <strong>Creator</strong> and a ruthless <strong>Critic</strong>.</li>
+          <li>The highest-quality results come from tight <strong>Human-AI collaboration</strong>, not isolated AI operation.</li>
+        </ul>
 
-            <h3>3. Refinement Loops</h3>
-            <p>Repeatedly polishing specific features of the output: <em>"Improve readability" &rarr; "Maximize persuasiveness" &rarr; "Optimize for SEO."</em></p>
-
-            <h3>4. Using AI as a Critic <span class="badge-pro">Pro Tip</span></h3>
-            <p>Don't just use AI to create—use it to tear your work apart. Prompt it to act as an <strong>Investor, Customer, or cynical Critic</strong>:</p>
-            <div class="example-box">
-                "Review this proposal and ruthlessly identify weaknesses."<br>
-                "Challenge every underlying assumption made in this document."
-            </div>
-        </section>
-
-        <!-- PRACTICAL EXERCISE -->
-        <section id="exercises" style="background-color: #fafafa;">
-            <h2>Practical Exercises</h2>
-            
-            <div style="margin-bottom: 1.5rem;">
-                <h4>Task 1: The Baseline</h4>
-                <p>Ask ChatGPT: <em>"Act as a Product Manager and create a PRD for a food delivery application."</em> Observe the standard response depth.</p>
-            </div>
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
-            <div style="margin-bottom: 1.5rem;">
-                <h4>Task 2: The Iteration</h4>
-                <p>Improve that exact result using iterative loops. Instruct it to layer in precise technical constraints, localized user stories, and strict QA acceptance criteria.</p>
-            </div>
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
-            <div>
-                <h4>Task 3: The Critic</h4>
-                <p>Feed that output right back to the AI and say: <em>"Act as a senior venture capital investor and identify critical flaws or operational risks in this product setup."</em> Watch how effectively it critiques its own architecture.</p>
-            </div>
-        </section>
-
-        <!-- KEY TAKEAWAYS -->
-        <section id="takeaways" style="border-top: 4px solid var(--accent-color);">
-            <h2>Key Takeaways</h2>
-            <ul class="takeaways-list">
-                <li>AI is a statistical prediction engine, not a conscious human brain.</li>
-                <li>Prompt quality directly dictates the utility and depth of your outputs.</li>
-                <li>Select your model (ChatGPT, Claude, Gemini) intentionally based on the task at hand.</li>
-                <li>Context management is your most valuable asset when dealing with modern models.</li>
-                <li>AI easily hallucinates; never skip verification for factual dependencies.</li>
-                <li>Professionals achieve excellence via Iterative Prompting, Chaining, and Refinement loops.</li>
-                <li>Always utilize AI symmetrically: both as a brilliant Creator and a ruthless Critic.</li>
-                <li>The absolute highest-tier results come from tight <strong>Human-AI collaboration</strong>, not isolated AI operation.</li>
-            </ul>
-        </section>
+      </div>
     </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <span>© 2026 Powered by <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a></span>
+    <div class="footer-right">
+      <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a>
+      <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>
+      <a href="/syllabus/">Syllabus</a>
+      <a href="/notes/">Notes</a>
+    </div>
+  </footer>
 
 </body>
 </html>

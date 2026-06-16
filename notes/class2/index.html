@@ -1,577 +1,1055 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 2 Notes: Prompt Engineering & AI for Professional Work</title>
-    <link rel="icon" type="image/x-icon" href="https://www.rachna-ai.in/favicon.ico">
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --accent-color: #38bdf8;
-            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
-            --border-color: #334155;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            --code-bg: #0b0f19;
-            --danger-color: #ef4444;
-            --success-color: #10b981;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 2 — Prompt Engineering & AI for Professional Work · GenAI Mastery</title>
+  <link rel="icon" type="image/x-icon" href="https://www.rachna-ai.in/favicon.ico">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <!-- Shared site styles -->
+  <link rel="stylesheet" href="../../genai-mastery-common.css">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.7;
-            padding-top: 80px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <style>
+    /* ================================================================
+       Class Notes — Page-specific styles
+       Theme: Light, readable, print-optimized
+       ================================================================ */
 
-        /* Fixed Navigation Header */
-        header.nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4rem;
-            z-index: 1000;
-        }
+    /* ── PAGE LAYOUT ───────────────────────────────────────────────── */
+    body {
+      padding-top: var(--nav-h);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .logo-group a {
-            text-decoration: none;
-        }
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      gap: 0;
+    }
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.025em;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* ── LEFT PROGRESS RAIL (screen only) ──────────────────────────── */
+    .toc-rail {
+      position: sticky;
+      top: var(--nav-h);
+      align-self: flex-start;
+      width: 220px;
+      flex-shrink: 0;
+      padding: 3rem 0 3rem 2.5rem;
+      max-height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
 
-        .tab-container {
-            display: flex;
-            gap: 1rem;
-        }
+    .toc-rail-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 1rem;
+    }
 
-        .tab-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            padding: 0.5rem 1.25rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
+    .toc-list {
+      list-style: none;
+      border-left: 1.5px solid var(--border);
+    }
 
-        .tab-btn:hover {
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
+    .toc-list li a {
+      display: block;
+      padding: 0.3rem 0 0.3rem 0.875rem;
+      font-size: 0.8rem;
+      color: var(--faint);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.15s, border-color 0.15s;
+      border-left: 2px solid transparent;
+      margin-left: -1.5px;
+    }
 
-        .tab-btn.active {
-            color: var(--accent-color);
-            background-color: rgba(56, 189, 248, 0.1);
-            border-color: rgba(56, 189, 248, 0.2);
-        }
+    .toc-list li a:hover,
+    .toc-list li a.active {
+      color: var(--navy);
+      border-left-color: var(--navy);
+    }
 
-        /* Main Structural Layout */
-        .container {
-            max-width: 900px;
-            width: 100%;
-            margin: 3rem auto 6rem auto;
-            padding: 0 2rem;
-            flex-grow: 1;
-        }
+    /* ── MAIN CONTENT ──────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 3.5rem 3rem 6rem 3rem;
+      max-width: 780px;
+    }
 
-        /* Breadcrumb Trailing Navigation */
-        .breadcrumbs {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
+    /* ── PAGE HEADER ───────────────────────────────────────────────── */
+    .class-header {
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .breadcrumbs a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
+    .class-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
 
-        .breadcrumbs a:hover {
-            color: var(--accent-color);
-        }
+    .class-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--navy-lt);
+      border: 1px solid rgba(30, 58, 138, 0.16);
+      padding: 0.3rem 0.7rem;
+      border-radius: 5px;
+    }
 
-        /* Session Header Meta */
-        .class-header {
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 2rem;
-        }
+    .class-badge::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--navy);
+    }
 
-        .meta-badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent-color);
-            padding: 0.3rem 0.75rem;
-            border-radius: 0.25rem;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
+    .print-btn {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border-hi);
+      border-radius: 6px;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
+    .print-btn:hover {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--navy);
+    }
 
-        h2 {
-            font-size: 1.6rem;
-            color: #fff;
-            margin-top: 3.5rem;
-            margin-bottom: 1.25rem;
-            font-weight: 700;
-            border-left: 3px solid var(--accent-color);
-            padding-left: 0.75rem;
-        }
+    .class-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
 
-        h3 {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
+    .class-header .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
 
-        p {
-            color: var(--text-main);
-            margin-bottom: 1.25rem;
-            font-size: 1.05rem;
-        }
+    /* ── SECTION HEADINGS ──────────────────────────────────────────── */
+    .notes-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 3.75rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
 
-        /* Lists */
-        ul {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
+    .notes-body h2 .section-num {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 168, 67, 0.1);
+      border: 1px solid rgba(212, 168, 67, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      position: relative;
+      top: -1px;
+    }
 
-        li {
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-            font-size: 1.05rem;
-        }
+    .notes-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
 
-        hr {
-            border: 0;
-            height: 1px;
-            background: var(--border-color);
-            margin: 4rem 0;
-        }
+    /* ── BODY TEXT ─────────────────────────────────────────────────── */
+    .notes-body p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
 
-        /* Reusable Information Containers */
-        .info-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-        }
+    .notes-body strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
 
-        .objective-box {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.03) 0%, rgba(2, 132, 199, 0.05) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-        }
+    .notes-body ul,
+    .notes-body ol {
+      padding-left: 1.35rem;
+      margin-bottom: 1.25rem;
+    }
 
-        /* Prompt Block Display Systems */
-        .prompt-comparison {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
+    .notes-body li {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.4rem;
+    }
 
-        .prompt-container {
-            background-color: var(--code-bg);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 0.95rem;
-            white-space: pre-line;
-            border-left: 4px solid var(--border-color);
-            position: relative;
-        }
+    .notes-body li strong { color: var(--ink); }
 
-        .prompt-container::before {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.75rem;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 0.25rem;
-        }
+    .notes-body code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+      color: var(--navy);
+    }
 
-        .prompt-container.bad {
-            border-left-color: var(--danger-color);
-            background-color: rgba(239, 68, 68, 0.01);
-        }
-        .prompt-container.bad::before {
-            content: "Bad Prompt";
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--danger-color);
-        }
+    .notes-body hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 3.5rem 0;
+    }
 
-        .prompt-container.good {
-            border-left-color: var(--success-color);
-            background-color: rgba(16, 185, 129, 0.01);
-        }
-        .prompt-container.good::before {
-            content: "Structured Blueprint";
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
+    /* ── OBJECTIVE BOX ─────────────────────────────────────────────── */
+    .objective-box {
+      background: linear-gradient(135deg, rgba(30,58,138,0.03) 0%, rgba(30,58,138,0.06) 100%);
+      border: 1px solid rgba(30, 58, 138, 0.14);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 10px 10px 0;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+    }
 
-        /* Library Structural Mapping Layouts */
-        .library-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
+    .objective-box .obj-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
 
-        .library-folder {
-            background-color: rgba(30, 41, 59, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1.25rem;
-        }
+    .objective-box ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
 
-        .folder-title {
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .objective-box li {
+      font-size: 0.95rem;
+      color: var(--ink-2);
+      margin-bottom: 0.35rem;
+    }
 
-        /* Homework Callout Specific Blocks */
-        .homework-box {
-            border-left: 4px solid #f59e0b;
-            background: rgba(245, 158, 11, 0.02);
-        }
+    /* ── PROMPT COMPARISON ─────────────────────────────────────────── */
+    .prompt-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
 
-        /* Footer Element */
-        footer {
-            border-top: 1px solid var(--border-color);
-            background-color: rgba(15, 23, 42, 0.8);
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: auto;
-        }
+    .prompt-pair.single {
+      grid-template-columns: 1fr;
+    }
 
-        footer a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .prompt-block {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-hi);
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.875rem;
+      line-height: 1.65;
+    }
 
-        @media (max-width: 768px) {
-            header.nav-header { padding: 0 1.5rem; }
-            .container { padding: 0 1rem; }
-            .library-grid { grid-template-columns: 1fr; }
+    .prompt-block-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .prompt-block-header .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .prompt-block-content {
+      padding: 1rem 1.1rem;
+      white-space: pre-line;
+    }
+
+    .prompt-block.bad .prompt-block-header {
+      background: rgba(239,68,68,0.06);
+      color: #B91C1C;
+      border-bottom: 1px solid rgba(239,68,68,0.12);
+    }
+
+    .prompt-block.bad .prompt-block-header .dot { background: #EF4444; }
+    .prompt-block.bad .prompt-block-content {
+      background: rgba(239,68,68,0.02);
+      color: var(--muted);
+    }
+
+    .prompt-block.good .prompt-block-header {
+      background: rgba(16,185,129,0.06);
+      color: #065F46;
+      border-bottom: 1px solid rgba(16,185,129,0.12);
+    }
+
+    .prompt-block.good .prompt-block-header .dot { background: #10B981; }
+    .prompt-block.good .prompt-block-content {
+      background: rgba(16,185,129,0.02);
+      color: var(--ink-2);
+    }
+
+    /* ── FRAMEWORK PARTS ───────────────────────────────────────────── */
+    .framework-parts {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin: 1.75rem 0;
+    }
+
+    .framework-part {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 0.875rem;
+      text-align: center;
+    }
+
+    .framework-part .part-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .framework-part .part-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CALLOUT / INFO BOX ────────────────────────────────────────── */
+    .callout {
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .callout.tip {
+      background: rgba(30, 58, 138, 0.04);
+      border-color: rgba(30, 58, 138, 0.12);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .callout.formula {
+      background: var(--surface-2);
+      border-color: var(--border-hi);
+      text-align: center;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.95rem;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .callout.formula strong { color: var(--navy); }
+
+    .callout p { margin: 0; font-size: 0.95rem; }
+
+    /* ── HOMEWORK BOX ──────────────────────────────────────────────── */
+    .homework-box {
+      background: rgba(245, 158, 11, 0.03);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-left: 3px solid #F59E0B;
+      border-radius: 0 10px 10px 0;
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+    }
+
+    .homework-box .hw-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #B45309;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .homework-box ul {
+      margin: 0 0 1rem;
+    }
+
+    .homework-box li {
+      color: var(--ink-2);
+      font-size: 0.95rem;
+    }
+
+    .homework-box .hw-note {
+      font-size: 0.88rem;
+      color: var(--faint);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ── EXERCISE CARDS ────────────────────────────────────────────── */
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .exercise-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+    }
+
+    .exercise-card .ex-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.4rem;
+    }
+
+    .exercise-card .ex-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .exercise-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── PROMPT LIBRARY GRID ───────────────────────────────────────── */
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .library-folder {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+    }
+
+    .folder-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .library-folder ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    .library-folder li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── PRINT STYLES ──────────────────────────────────────────────── */
+    @media print {
+      body { padding-top: 0; background: #fff; }
+
+      .toc-rail,
+      .print-btn,
+      .class-meta-row .print-btn { display: none !important; }
+
+      .page-wrap { display: block; }
+
+      main { padding: 2rem 1.5rem; max-width: 100%; }
+
+      .class-header h1 { font-size: 2rem; }
+
+      .notes-body h2 { margin-top: 2.5rem; page-break-after: avoid; }
+      .notes-body h3 { page-break-after: avoid; }
+
+      .prompt-pair { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .prompt-block { break-inside: avoid; }
+
+      .framework-parts { grid-template-columns: repeat(5, 1fr); }
+      .framework-part { break-inside: avoid; }
+
+      .exercise-grid { grid-template-columns: 1fr 1fr; }
+      .exercise-card { break-inside: avoid; }
+
+      .homework-box,
+      .objective-box,
+      .callout { break-inside: avoid; }
+
+      .notes-body hr { margin: 2rem 0; }
+
+      @page {
+        margin: 2cm 2.5cm;
+        @top-right {
+          content: "GenAI Mastery — Class 2 Notes";
+          font-size: 8pt;
+          color: #94A3B8;
         }
-    </style>
+        @bottom-center {
+          content: counter(page);
+          font-size: 8pt;
+          color: #94A3B8;
+        }
+      }
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .toc-rail { display: none; }
+      main { padding: 3rem 2rem 5rem; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 2rem 1.25rem 4rem; }
+      .prompt-pair { grid-template-columns: 1fr; }
+      .framework-parts { grid-template-columns: repeat(3, 1fr); }
+      .exercise-grid { grid-template-columns: 1fr; }
+      .library-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- STICKY TOP HEADER -->
-    <header class="nav-header">
-        <div class="logo-group">
-            <a href="../../"><div class="logo">GenAI Mastery</div></a>
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="../../" class="logo-mark">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13 L8 3 L13 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 9.5 L11 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="../../" class="logo-text">GenAI Mastery</a>
+      <div class="header-divider"></div>
+      <a href="https://www.rachna-ai.in" target="_blank" class="studio-link">Rachna AI Studio</a>
+    </div>
+    <nav class="site-nav">
+      <a href="../../syllabus/">Syllabus</a>
+      <a href="../" class="active">Notes</a>
+    </nav>
+  </header>
+
+  <!-- ── PAGE BODY ── -->
+  <div class="page-wrap">
+
+    <!-- Left ToC Rail (screen only) -->
+    <aside class="toc-rail print-hide" aria-label="Page contents">
+      <p class="toc-rail-label">On this page</p>
+      <ul class="toc-list">
+        <li><a href="#evolution">Prompt Engineering</a></li>
+        <li><a href="#context">Context Engineering</a></li>
+        <li><a href="#why-bad">Why Prompts Fail</a></li>
+        <li><a href="#framework">5-Part Framework</a></li>
+        <li><a href="#techniques">Pro Techniques</a></li>
+        <li><a href="#workflows">PM Workflows</a></li>
+        <li><a href="#library">Prompt Library</a></li>
+        <li><a href="#exercises">Exercises</a></li>
+        <li><a href="#takeaways">Key Takeaways</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main article -->
+    <main>
+
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs print-hide" aria-label="Breadcrumb">
+        <a href="../../">Home</a>
+        <span class="sep">›</span>
+        <a href="../">Notes</a>
+        <span class="sep">›</span>
+        <span>Class 2</span>
+      </nav>
+
+      <!-- Article Header -->
+      <header class="class-header">
+        <div class="class-meta-row">
+          <span class="class-badge">Class 02</span>
+          <a href="#" onclick="window.print(); return false;" class="print-btn print-hide">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6V2h8v4M4 11H2V6h12v5h-2M4 11v3h8v-3"/>
+            </svg>
+            Print / Save PDF
+          </a>
         </div>
-        <div class="tab-container">
-            <a href="../../syllabus/" class="tab-btn">Syllabus</a>
-            <a href="../" class="tab-btn active">Notes</a>
+        <h1>Prompt Engineering &amp;<br>AI for Professional Work</h1>
+        <p class="subtitle">How to get expert-level output from AI — from basic prompt structure to building a personal automation library.</p>
+      </header>
+
+      <!-- Article Body -->
+      <div class="notes-body">
+
+        <!-- Objectives -->
+        <div class="objective-box">
+          <p class="obj-label">Learning Objectives</p>
+          <ul>
+            <li>Get significantly better results from AI</li>
+            <li>Understand why most prompts fail and how to fix them</li>
+            <li>Build reusable, professional prompt templates</li>
+            <li>Use AI for core Product Management workflows</li>
+            <li>Create a structured personal prompt library</li>
+          </ul>
         </div>
-    </header>
 
-    <!-- CONTENT WRAPPER -->
-    <main class="container">
-        
-        <nav class="breadcrumbs">
-            <a href="../../">Home</a> &rarr; 
-            <a href="../">Notes</a> &rarr; 
-            <span>Class 2</span>
-        </nav>
+        <!-- ── SECTION 1 ── -->
+        <h2 id="evolution">
+          <span class="section-num">01</span>
+          Evolution of Prompt Engineering (2023 → 2026)
+        </h2>
 
-        <article>
-            <div class="class-header">
-                <span class="meta-badge">Class 02 Notes</span>
-                <h1>Prompt Engineering & AI for Professional Work</h1>
+        <h3>Why Prompt Engineering Became Important</h3>
+        <p>Large Language Models (LLMs) generate outputs based on the instructions and context provided to them. The process of designing these instructions is known as <strong>Prompt Engineering</strong>.</p>
+        <p>It became a critical skill during early AI adoption because models required carefully structured instructions to produce reliable, high-quality results.</p>
+
+        <div class="prompt-pair">
+          <div class="prompt-block bad">
+            <div class="prompt-block-header">
+              <span class="dot"></span> Weak Prompt
             </div>
-
-            <!-- SESSION OBJECTIVES -->
-            <div class="info-box objective-box">
-                <h3>Objective of Today's Session</h3>
-                <p>By the end of this class you should be able to:</p>
-                <ul>
-                    <li>Get significantly better results from AI</li>
-                    <li>Understand why most prompts fail</li>
-                    <li>Build reusable prompt templates</li>
-                    <li>Use AI for core Product Management workflows</li>
-                    <li>Create a structured personal prompt library</li>
-                </ul>
+            <div class="prompt-block-content">Build a website.</div>
+          </div>
+          <div class="prompt-block good">
+            <div class="prompt-block-header">
+              <span class="dot"></span> Engineered Prompt
             </div>
+            <div class="prompt-block-content">You are a senior React developer.
+Build a responsive website using modern UI practices.
+Explain your design decisions.</div>
+          </div>
+        </div>
 
-            <!-- CRITIQUE MODULE -->
-            <h2>Why Most People Get Bad Results</h2>
-            <p>Most people treat and use generative AI engines like traditional search tools (e.g., Google). They submit brief, uncontextualized inputs expecting finished, perfect deliverables:</p>
-            
-            <div class="prompt-comparison">
-                <div class="prompt-container bad">"Give me a roadmap."</div>
-                <div class="prompt-container bad">"Write a PRD."</div>
-                <div class="prompt-container bad">"Analyze this."</div>
+        <h3>The Shift to Context Engineering</h3>
+        <p>Modern models already natively understand user intent, common best practices, and professional styles. The gap between average and expert prompting has narrowed — but prompt engineering has evolved rather than disappeared. It has shifted from <strong>instruction engineering</strong> to <strong>Context Engineering</strong>.</p>
+
+        <hr>
+
+        <!-- ── SECTION 2 ── -->
+        <h2 id="context">
+          <span class="section-num">02</span>
+          Context Engineering: The New Frontier
+        </h2>
+
+        <p>Without context, AI can only generate generic solutions. Consider the difference:</p>
+
+        <div class="prompt-pair single">
+          <div class="prompt-block bad">
+            <div class="prompt-block-header">
+              <span class="dot"></span> No Context
             </div>
+            <div class="prompt-block-content">Create a login page.</div>
+          </div>
+        </div>
 
-            <p>These prompts fail because they fundamentally lack: <strong>Context, Objectives, Constraints, and Target Audience parameters.</strong></p>
-            
-            <div class="info-box" style="border-left: 4px solid var(--accent-color); background: rgba(56, 189, 248, 0.01);">
-                <p style="margin: 0; font-weight: 600;">AI cannot read your mind. The quality of your output is always directly proportional to the structural quality of your input instructions.</p>
+        <p>Now enrich the same request with project context — Next.js 15, TypeScript, Tailwind CSS, Supabase Auth, existing folder structure and design system. The AI can now generate a solution that integrates directly into your codebase. <strong>That preparation is Context Engineering.</strong></p>
+
+        <h3>The Three Pillars of Context</h3>
+        <ul>
+          <li><strong>Static Context (The Environment):</strong> Global architecture rules that rarely change — tech stack, repo layout, style guides.</li>
+          <li><strong>Dynamic Context (The Active State):</strong> Localized info based on your immediate task — active files, recent error logs.</li>
+          <li><strong>Behavioral Context (The Memory Layer):</strong> Persistent rule profiles stored in files like <code>.cursorrules</code>.</li>
+        </ul>
+
+        <h3>Context-Aware Prompt Optimization</h3>
+        <p>Most advanced AI applications automatically enrich simple requests before sending them to the model:</p>
+
+        <div class="prompt-pair single">
+          <div class="prompt-block good">
+            <div class="prompt-block-header">
+              <span class="dot"></span> Optimized Internal Prompt (auto-generated by the IDE)
             </div>
+            <div class="prompt-block-content"><strong>User Request:</strong> Create a login page.
 
-            <!-- THE CORE FRAMEWORK -->
-            <h2>The 5-Part Prompt Framework</h2>
-            <p>Every professional, enterprise-grade prompt must map across these five essential parameters:</p>
+<strong>Enriched Prompt:</strong> Create a login page for a Next.js 15 application.
+Requirements:
+- TypeScript, Tailwind CSS, Supabase Authentication
+- Use the existing custom Button component
+- Follow the current dark theme config and project layout</div>
+          </div>
+        </div>
 
-            <h3>1. Role</h3>
-            <p>Define the exact expertise matrix the AI should adopt. (e.g., <em>"Act as a Senior Product Manager."</em>)</p>
-            <ul>
-                <li>Product Manager | CEO | Investor | Software Architect | Marketing Expert</li>
-            </ul>
+        <h3>How Modern AI Assistants Improve Results</h3>
+        <ol>
+          <li><strong>Rule-Based Enhancement:</strong> Blueprints turn shorthand into formal instructions.</li>
+          <li><strong>Retrieval-Augmented Generation (RAG):</strong> Semantic search pulls relevant files and functions into context.</li>
+          <li><strong>Memory Systems:</strong> Context variables track past feedback, team setups, and styles.</li>
+          <li><strong>Prompt Rewriting:</strong> Hidden passes expand vague commands into precise requests.</li>
+          <li><strong>Multi-Agent Workflows:</strong> Specialized agents team up to plan, code, review, and evaluate.</li>
+        </ol>
 
-            <h3>2. Objective</h3>
-            <p>Define exactly what the AI needs to execute. (e.g., <em>"Create a Product Requirements Document."</em>)</p>
+        <hr>
 
-            <h3>3. Context</h3>
-            <p>Provide deep background architecture info. This is usually the <strong>single biggest factor</strong> dictating final quality. (e.g., <em>"We are building a food delivery platform optimized specifically for cash-strapped college students."</em>)</p>
+        <!-- ── SECTION 3 ── -->
+        <h2 id="why-bad">
+          <span class="section-num">03</span>
+          Why Most People Get Bad Results
+        </h2>
 
-            <h3>4. Constraints</h3>
-            <p>Define absolute guardrails and operating parameters to eliminate model ambiguity:</p>
-            <ul>
-                <li>Under 500 words | Table output formats | Tailored for executive audiences | Budgets capped under ₹50,000</li>
-            </ul>
+        <p>Most people treat AI like a search engine — submitting brief, uncontextualized inputs and expecting finished deliverables.</p>
 
-            <h3>5. Output Format</h3>
-            <p>Explicitly layout the structural presentation template (e.g., <strong>Bullet points, Tables, raw JSON structures, PRD syntax layouts, or Executive summaries</strong>).</p>
+        <div class="prompt-pair">
+          <div class="prompt-block bad">
+            <div class="prompt-block-header"><span class="dot"></span> Fails</div>
+            <div class="prompt-block-content">"Give me a roadmap."</div>
+          </div>
+          <div class="prompt-block bad">
+            <div class="prompt-block-header"><span class="dot"></span> Fails</div>
+            <div class="prompt-block-content">"Write a PRD."</div>
+          </div>
+        </div>
 
-            <h3>Framework Application Example</h3>
-            <div class="prompt-comparison">
-                <div class="prompt-container bad">Create a marketing plan.</div>
-                <div class="prompt-container good">Act as a senior growth marketer.
+        <p>These prompts fail because they lack: <strong>Context, Objectives, Constraints, and Target Audience parameters.</strong></p>
+
+        <div class="callout tip">
+          <p>AI cannot read your mind. The quality of your output is always directly proportional to the structural quality of your input instructions.</p>
+        </div>
+
+        <hr>
+
+        <!-- ── SECTION 4 ── -->
+        <h2 id="framework">
+          <span class="section-num">04</span>
+          The 5-Part Prompt Framework
+        </h2>
+
+        <p>Every professional, enterprise-grade prompt must map across these five parameters:</p>
+
+        <div class="framework-parts">
+          <div class="framework-part">
+            <div class="part-num">1</div>
+            <div class="part-name">Role</div>
+          </div>
+          <div class="framework-part">
+            <div class="part-num">2</div>
+            <div class="part-name">Objective</div>
+          </div>
+          <div class="framework-part">
+            <div class="part-num">3</div>
+            <div class="part-name">Context</div>
+          </div>
+          <div class="framework-part">
+            <div class="part-num">4</div>
+            <div class="part-name">Constraints</div>
+          </div>
+          <div class="framework-part">
+            <div class="part-num">5</div>
+            <div class="part-name">Output Format</div>
+          </div>
+        </div>
+
+        <h3>1. Role</h3>
+        <p>Define the exact expertise the AI should adopt. <em>e.g., "Act as a Senior Product Manager."</em></p>
+        <p>Profiles: <strong>Product Manager · CEO · Investor · Software Architect · Marketing Expert</strong></p>
+
+        <h3>2. Objective</h3>
+        <p>Define exactly what the AI needs to execute. <em>e.g., "Create a Product Requirements Document."</em></p>
+
+        <h3>3. Context</h3>
+        <p>Provide deep background information. This is usually the <strong>single biggest factor</strong> dictating final quality. <em>e.g., "We are building a food delivery platform for cash-strapped college students."</em></p>
+
+        <h3>4. Constraints</h3>
+        <p>Define absolute guardrails to eliminate model ambiguity:</p>
+        <ul>
+          <li>Under 500 words · Table output format · For executive audiences · Budget under ₹50,000</li>
+        </ul>
+
+        <h3>5. Output Format</h3>
+        <p>Explicitly specify the structural presentation: <strong>Bullet points, Tables, JSON, PRD syntax, or Executive summaries.</strong></p>
+
+        <h3>Framework in Action</h3>
+        <div class="prompt-pair">
+          <div class="prompt-block bad">
+            <div class="prompt-block-header"><span class="dot"></span> Before Framework</div>
+            <div class="prompt-block-content">Create a marketing plan.</div>
+          </div>
+          <div class="prompt-block good">
+            <div class="prompt-block-header"><span class="dot"></span> After Framework</div>
+            <div class="prompt-block-content">Act as a senior growth marketer.
 
 Create a 30-day marketing plan for a newly launched AI consulting agency.
 
-Target audience:
-Small business owners.
+Target audience: Small business owners.
+Budget: ₹25,000/month.
 
-Budget:
-₹25,000/month.
+Provide output as a table:
+Week | Activity | Expected Outcome | Cost</div>
+          </div>
+        </div>
 
-Provide output in a table with:
-Week | Activity | Expected Outcome | Estimated Cost</div>
-            </div>
+        <hr>
 
-            <hr>
+        <!-- ── SECTION 5 ── -->
+        <h2 id="techniques">
+          <span class="section-num">05</span>
+          Prompting Techniques Used by Professionals
+        </h2>
 
-            <!-- PROFESSIONAL TECHNIQUES -->
-            <h2>Prompting Techniques Used by Professionals</h2>
+        <h3>Technique 1 — Role Prompting</h3>
+        <p>Assigning explicit expertise profiles shifts the stylistic tone and operational outlook of the response entirely.</p>
+        <p>Profiles to try: <strong>Product Manager · Startup Founder · CTO · UX Designer · VC Investor</strong></p>
 
-            <h3>Technique 1: Role Prompting</h3>
-            <p>Force specialized weights inside the response algorithms. Assigning explicit expertise profiles shifts the stylistic tone and operational outlook of the engine entirely.</p>
-            <ul>
-                <li>Profiles: <strong>Product Manager, Startup Founder, CTO, UX Designer, VC Investor</strong></li>
-            </ul>
+        <h3>Technique 2 — Audience Prompting</h3>
+        <p>Specify who will consume the output. Communication style adapts based on whether your audience is a child, a customer, an executive board, or a software engineer.</p>
 
-            <h3>Technique 2: Audience Prompting</h3>
-            <p>Specify who will consume the output asset. Communication style adapts explicitly based on whether you dictate your audience as: <strong>A child, a generic customer, an Executive Board member, or a Software Engineer.</strong></p>
+        <h3>Technique 3 — Format Prompting</h3>
+        <p>Control downstream structure. Mandate clear organizational schemas — <strong>Tables, Checklists, PRDs, Roadmaps, Presentation outlines</strong> — to make output instantly reusable.</p>
 
-            <h3>Technique 3: Format Prompting</h3>
-            <p>Control downstream structures. Mandate clear organizational syntax schemas like <strong>Tables, Checklists, formalized PRDs, Roadmaps, or Presentation outlines</strong> to make data instantly reusable.</p>
+        <h3>Technique 4 — Example Prompting (Few-Shot / XML Segmentation)</h3>
+        <p>Feed high-performing benchmarks into the context layer. XML-style tags help the model cleanly map different parameters:</p>
 
-            <h3>Technique 4: Example Prompting (Few-Shot Strategy)</h3>
-            <p>Feed high-performing operational benchmarks directly into the context layer. This is one of the highest-impact optimization tactics available:</p>
-            <div class="prompt-container good">Here is an example of how I write executive summaries:
-[Paste Benchmark Real-World Example Here]
+        <div class="prompt-pair single">
+          <div class="prompt-block good">
+            <div class="prompt-block-header"><span class="dot"></span> Few-Shot with XML Tags</div>
+            <div class="prompt-block-content">&lt;benchmark_example&gt;
+Here is an example of how I write executive summaries:
+[Paste your best example here]
+&lt;/benchmark_example&gt;
 
-Generate future summaries using the exact syntax, tone, and pacing displayed above.</div>
+Generate future summaries using the exact syntax, tone, and pacing shown above.</div>
+          </div>
+        </div>
 
-            <hr>
+        <hr>
 
-            <!-- STRATEGIC THOUGHT PORTAL -->
-            <h2>AI as a Work Assistant</h2>
-            <p>Professionals don't treat AI purely as a text drafting mechanism; they exploit it as a **collaborative thinking partner**. Use explicit interrogation structures to bulletproof your strategy:</p>
-            <ul>
-                <li><em>"Challenge this strategy."</em></li>
-                <li><em>"Identify blindspots and risks in this launch pipeline."</em></li>
-                <li><em>"What hidden assumptions am I making here?"</em></li>
-                <li><em>"How would an aggressive competitor respond to this feature rollout?"</em></li>
-            </ul>
+        <!-- ── SECTION 6 ── -->
+        <h2 id="workflows">
+          <span class="section-num">06</span>
+          AI for Product Management Workflows
+        </h2>
 
-            <hr>
-
-            <!-- WORKFLOW DEEP DIVES -->
-            <h2>Product Management Workflows</h2>
-            
-            <h3>Creating User Stories</h3>
-            <div class="prompt-container good">Act as a Senior Product Manager.
+        <h3>Creating User Stories</h3>
+        <div class="prompt-pair single">
+          <div class="prompt-block good">
+            <div class="prompt-block-header"><span class="dot"></span> Template</div>
+            <div class="prompt-block-content">Act as a Senior Product Manager.
 Generate user stories for a food delivery application.
-Include: User Story, Acceptance Criteria, and Priority level metrics.</div>
+Include: User Story, Acceptance Criteria, and Priority level.</div>
+          </div>
+        </div>
 
-            <h3>Creating PRDs</h3>
-            <div class="prompt-container good">Act as a Product Manager.
+        <h3>Creating a PRD</h3>
+        <div class="prompt-pair single">
+          <div class="prompt-block good">
+            <div class="prompt-block-header"><span class="dot"></span> Template</div>
+            <div class="prompt-block-content">Act as a Product Manager.
 Create a PRD for an AI-powered meeting assistant.
-Include: Problem Statement, Objectives, User Personas, Functional Requirements, Non-functional Requirements, and Success Metrics.</div>
+Include: Problem Statement, Objectives, User Personas,
+Functional Requirements, Non-functional Requirements,
+and Success Metrics.</div>
+          </div>
+        </div>
 
-            <h3>Feature Prioritization</h3>
-            <div class="prompt-container good">Act as a Product Lead.
+        <h3>Feature Prioritization (RICE)</h3>
+        <div class="prompt-pair single">
+          <div class="prompt-block good">
+            <div class="prompt-block-header"><span class="dot"></span> Template</div>
+            <div class="prompt-block-content">Act as a Product Lead.
 Evaluate these features using the RICE framework:
 [List Features Here]
 
-Return all analysis blocks organized cleanly inside an interactive table.</div>
+Return all results organized in an interactive table.</div>
+          </div>
+        </div>
 
-            <hr>
+        <div class="callout tip">
+          <p>Professionals also use AI as a <strong>collaborative thinking partner</strong>. Try: <em>"Challenge this strategy."</em> / <em>"Identify blindspots in this launch pipeline."</em> / <em>"How would an aggressive competitor respond to this rollout?"</em></p>
+        </div>
 
-            <!-- PROMPT LIBRARIES -->
-            <h2>Building Your Personal Prompt Library</h2>
-            <p>Your library is a valuable career asset. Organize your core templates into clean, modular directory folders within systems like Notion, Docs, or Obsidian:</p>
-            
-            <div class="library-grid">
-                <div class="library-folder">
-                    <div class="folder-title">📂 Research</div>
-                    <ul>
-                        <li>Competitor Analysis</li>
-                        <li>Market Research Tracks</li>
-                        <li>Customer Discovery Scripts</li>
-                    </ul>
-                </div>
-                <div class="library-folder">
-                    <div class="folder-title">📂 Product Management</div>
-                    <ul>
-                        <li>PRD Core Generators</li>
-                        <li>User Story Blueprints</li>
-                        <li>Roadmaps & Sprint Matrices</li>
-                    </ul>
-                </div>
-                <div class="library-folder">
-                    <div class="folder-title">📂 Content Architecture</div>
-                    <ul>
-                        <li>LinkedIn Text Strategy</li>
-                        <li>Deep Blog Frameworks</li>
-                        <li>Newsletter & Copy Packs</li>
-                    </ul>
-                </div>
-                <div class="library-folder">
-                    <div class="folder-title">📂 Operations & Meetings</div>
-                    <ul>
-                        <li>Meeting Note Transcripts</li>
-                        <li>Modular Action Item Pools</li>
-                        <li>Follow-Up Email Templates</li>
-                    </ul>
-                </div>
-            </div>
+        <hr>
 
-            <hr>
+        <!-- ── SECTION 7 ── -->
+        <h2 id="library">
+          <span class="section-num">07</span>
+          Building Your Personal Prompt Library
+        </h2>
 
-            <!-- PRACTICAL LAB EXPERIMENTS -->
-            <h2>Practical Action Labs</h2>
+        <p>Your prompt library is a career asset. Organize templates into clean, modular folders within Notion, Obsidian, or Google Docs.</p>
 
-            <div class="info-box">
-                <p><strong>Exercise 1: Create a Prompt Template</strong><br>
-                Build a reusable, tokenized PRD generator template capturing description, target audience, technical scope, and core success metrics. Test-run it against two separate concept verticals.</p>
-            </div>
-
-            <div class="info-box">
-                <p><strong>Exercise 2: Real-World Competitor Analysis</strong><br>
-                Isolate an enterprise market incumbent (e.g., <strong>Zomato, Swiggy, or Razorpay</strong>). Force the model to output a verified SWOT matrix (Strengths, Weaknesses, Opportunities, Threats) and run prompt refinement tracks over the baseline response.</p>
-            </div>
-
-            <div class="info-box">
-                <p><strong>Exercise 3: AI as Critic (Adversarial Loops)</strong><br>
-                Generate a raw startup idea. Then sequentially prompt the AI to critically evaluate that exact idea across three distinct lenses: Act as an <strong>Investor</strong> (isolate risks), act as a <strong>Customer</strong> (highlight friction points), and act as a <strong>Competitor</strong> (outline execution frameworks to beat your business).</p>
-            </div>
-
-            <div class="info-box">
-                <p><strong>Exercise 4: Structural Library Assembly</strong><br>
-                Draft and store 15 foundational prompt templates (5 Research, 5 PM, 5 Content Creation) inside an accessible workspace framework.</p>
-            </div>
-
-            <!-- HOMEWORK BLOCK -->
-            <div class="info-box homework-box">
-                <h3 style="color: #f59e0b; margin-top: 0;">Required Homework Deliverables</h3>
-                <ul>
-                    <li>Build a personal prompt library containing at least **15 structured templates**.</li>
-                    <li>Generate a complete, comprehensive **PRD** utilizing the 5-Part Framework.</li>
-                    <li>Execute a deep-dive **SWOT Analysis** of a market leader using specialized AI methodologies.</li>
-                    <li>Refine every single core output asset **at least 3 separate times** through iterative prompting tracks.</li>
-                </ul>
-                <p style="margin-bottom: 0; margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted);"><em>Bring all tracked progressive iteration assets to the next group cohort for live peer review.</em></p>
-            </div>
-
-            <hr>
-
-            <!-- CORE SUMMARY KEY TAKEAWAYS -->
-            <h2>Key Takeaways</h2>
+        <div class="library-grid">
+          <div class="library-folder">
+            <div class="folder-title">📂 Research</div>
             <ul>
-                <li>Prompt design directly determines down-funnel output quality.</li>
-                <li><strong>Context acts as the single most critical ingredient</strong> within any workflow.</li>
-                <li>AI achieves optimal weight configuration when explicitly bound to a tailored professional **Role**.</li>
-                <li>Leverage models as both an **accelerated creator** and an **adversarial critic**.</li>
-                <li>Product Managers can systematically automate significant operational chunks using prompt libraries.</li>
-                <li><strong>Iteration beats one-shot prompting every single time.</strong> Continuous refinement drives actual production value.</li>
+              <li>Competitor Analysis</li>
+              <li>Market Research</li>
+              <li>Customer Discovery Scripts</li>
             </ul>
-        </article>
-    </main>
+          </div>
+          <div class="library-folder">
+            <div class="folder-title">📂 Product Management</div>
+            <ul>
+              <li>PRD Generators</li>
+              <li>User Story Blueprints</li>
+              <li>Roadmaps &amp; Sprint Matrices</li>
+            </ul>
+          </div>
+          <div class="library-folder">
+            <div class="folder-title">📂 Content</div>
+            <ul>
+              <li>LinkedIn Strategy</li>
+              <li>Blog Frameworks</li>
+              <li>Newsletter &amp; Copy Packs</li>
+            </ul>
+          </div>
+          <div class="library-folder">
+            <div class="folder-title">📂 Operations</div>
+            <ul>
+              <li>Meeting Note Templates</li>
+              <li>Action Item Pools</li>
+              <li>Follow-Up Email Templates</li>
+            </ul>
+          </div>
+        </div>
 
-    <!-- BRAND FOOTER -->
-    <footer>
-        <p>&copy; 2026 Powered by <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a>. Developed by <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>.</p>
-    </footer>
+        <hr>
+
+        <!-- ── SECTION 8 ── -->
+        <h2 id="exercises">
+          <span class="section-num">08</span>
+          Practical Action Labs
+        </h2>
+
+        <div class="exercise-grid">
+          <div class="exercise-card">
+            <div class="ex-num">Exercise 1</div>
+            <div class="ex-title">Build a Prompt Template</div>
+            <p>Create a reusable PRD generator capturing description, target audience, technical scope, and success metrics. Test it against two separate product concepts.</p>
+          </div>
+          <div class="exercise-card">
+            <div class="ex-num">Exercise 2</div>
+            <div class="ex-title">Real-World Competitor Analysis</div>
+            <p>Pick a market incumbent (Zomato, Swiggy, Razorpay). Force the model to output a verified SWOT matrix, then refine the baseline response.</p>
+          </div>
+          <div class="exercise-card">
+            <div class="ex-num">Exercise 3</div>
+            <div class="ex-title">AI as Adversarial Critic</div>
+            <p>Generate a startup idea. Then prompt the AI to evaluate it as an <strong>Investor</strong> (risks), a <strong>Customer</strong> (friction), and a <strong>Competitor</strong> (how to beat you).</p>
+          </div>
+          <div class="exercise-card">
+            <div class="ex-num">Exercise 4</div>
+            <div class="ex-title">Structural Library Assembly</div>
+            <p>Draft and store 15 foundational templates — 5 Research, 5 PM, 5 Content — inside an accessible workspace.</p>
+          </div>
+        </div>
+
+        <div class="homework-box">
+          <div class="hw-label">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H2v12l4-3 2 3 2-3 4 3V2z"/></svg>
+            Required Homework Deliverables
+          </div>
+          <ul>
+            <li>Build a personal prompt library with at least <strong>15 structured templates</strong></li>
+            <li>Generate a complete <strong>PRD</strong> using the 5-Part Framework</li>
+            <li>Execute a deep-dive <strong>SWOT Analysis</strong> of a market leader using AI</li>
+            <li>Refine every output asset <strong>at least 3 separate times</strong> through iterative prompting</li>
+          </ul>
+          <p class="hw-note">Bring all tracked iteration assets to the next session for live peer review.</p>
+        </div>
+
+        <hr>
+
+        <!-- ── SECTION 9 ── -->
+        <h2 id="takeaways">
+          <span class="section-num">09</span>
+          Key Takeaways
+        </h2>
+
+        <div class="callout formula">
+          <strong>Output Quality = Model Capability + Prompt Quality + Context Quality + Available Tools</strong>
+        </div>
+
+        <ul>
+          <li>Prompt design directly determines output quality downstream.</li>
+          <li><strong>Context is the single most critical ingredient</strong> within any workflow.</li>
+          <li>AI achieves optimal results when explicitly bound to a tailored professional <strong>Role</strong>.</li>
+          <li>Leverage AI as both an <strong>accelerated creator</strong> and an <strong>adversarial critic</strong>.</li>
+          <li>Writing clear prompts paired with high-relevance context is the real frontier.</li>
+          <li><strong>Iteration beats one-shot prompting every time.</strong> Continuous refinement drives production value.</li>
+        </ul>
+
+      </div>
+      <!-- /notes-body -->
+
+    </main>
+  </div>
+  <!-- /page-wrap -->
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <span>© 2026 Powered by <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a></span>
+    <div class="footer-right">
+      <a href="https://www.rachna-ai.in" target="_blank">Rachna AI Studio</a>
+      <a href="https://Rahulrkr1996.github.io/" target="_blank">Rahul Kumar</a>
+      <a href="../../syllabus/">Syllabus</a>
+      <a href="../">Notes</a>
+    </div>
+  </footer>
 
 </body>
 </html>
