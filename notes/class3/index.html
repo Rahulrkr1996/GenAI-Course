@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google AI Ecosystem Masterclass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0E0F12;
+    --ink-soft: #16181D;
+    --paper: #F2F1ED;
+    --paper-dim: #B9B9B4;
+    --line: rgba(242,241,237,0.12);
+
+    --blue:   #4285F4;
+    --red:    #EA4335;
+    --yellow: #FBBC04;
+    --green:  #34A853;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Signature thread ---------- */
+  .thread-rail{
+    position: fixed;
+    left: 0; top: 0;
+    width: 5px; height: 100%;
+    z-index: 5;
+    background: linear-gradient(
+      180deg,
+      var(--blue) 0%, var(--blue) 11%,
+      var(--red) 11%, var(--red) 22%,
+      var(--yellow) 22%, var(--yellow) 33%,
+      var(--green) 33%, var(--green) 44%,
+      var(--blue) 44%, var(--blue) 55%,
+      var(--red) 55%, var(--red) 66%,
+      var(--yellow) 66%, var(--yellow) 77%,
+      var(--green) 77%, var(--green) 88%,
+      var(--paper) 88%, var(--paper) 100%
+    );
+    opacity: 0.9;
+  }
+  @media (max-width: 700px){ .thread-rail{ width: 3px; } }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding: 120px 0 80px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .dotgroup{ display:inline-flex; gap:5px; }
+  .dotgroup span{
+    width: 7px; height: 7px; border-radius: 50%; display:inline-block;
+  }
+  .dotgroup span:nth-child(1){ background: var(--blue); }
+  .dotgroup span:nth-child(2){ background: var(--red); }
+  .dotgroup span:nth-child(3){ background: var(--yellow); }
+  .dotgroup span:nth-child(4){ background: var(--green); }
+
+  h1.title{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    max-width: 13ch;
+  }
+  .subtitle{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(18px, 2.4vw, 24px);
+    color: var(--paper-dim);
+    margin-top: 22px;
+    max-width: 46ch;
+  }
+  .hero-desc{
+    margin-top: 26px;
+    font-size: 16.5px;
+    color: var(--paper-dim);
+    max-width: 56ch;
+  }
+  .hero-meta{
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--paper-dim);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta strong{ color: var(--paper); font-weight: 500; }
+
+  /* ---------- Generic section ---------- */
+  section{
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-label{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    margin-bottom: 18px;
+  }
+  h2.section-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 3.4vw, 36px);
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+  }
+
+  /* ---------- Who it's for: chips ---------- */
+  .chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip{
+    font-size: 14px;
+    padding: 9px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--paper);
+    background: var(--ink-soft);
+  }
+  .footnote{
+    margin-top: 26px;
+    font-size: 14px;
+    color: var(--paper-dim);
+    font-style: italic;
+  }
+
+  /* ---------- Outcomes grid ---------- */
+  .grid-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 28px;
+  }
+  @media (max-width: 600px){ .grid-2{ grid-template-columns: 1fr; } }
+  .grid-item{
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .grid-item .mark{
+    font-family: var(--font-mono);
+    color: var(--paper-dim);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Modules ---------- */
+  .modules{ padding-top: 0; }
+  .module{
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .module:last-child{ border-bottom: none; }
+
+  .module-head{
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .module-num{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--accent, var(--blue));
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  h3.module-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 30px);
+  }
+  .module-rule{
+    height: 2px;
+    width: 48px;
+    background: var(--accent, var(--blue));
+    margin-bottom: 26px;
+  }
+
+  .submods{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px 32px;
+    margin-bottom: 28px;
+  }
+  .submod h4{
+    font-family: var(--font-display);
+    font-size: 15.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--paper);
+  }
+  .submod ul{
+    list-style: none;
+  }
+  .submod li{
+    font-size: 14.5px;
+    color: var(--paper-dim);
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .submod li::before{
+    content: '';
+    position: absolute;
+    left: 0; top: 13px;
+    width: 5px; height: 1px;
+    background: var(--accent, var(--blue));
+  }
+
+  .project-box{
+    margin-top: 8px;
+    padding: 18px 20px;
+    background: var(--ink-soft);
+    border-left: 2px solid var(--accent, var(--blue));
+    border-radius: 0 6px 6px 0;
+  }
+  .project-box .plabel{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent, var(--blue));
+    margin-bottom: 6px;
+    display: block;
+  }
+  .project-box p{ font-size: 15px; color: var(--paper); }
+
+  /* ---------- Capstone ---------- */
+  .capstone-intro{
+    font-size: 15.5px;
+    color: var(--paper-dim);
+    margin-bottom: 36px;
+    max-width: 60ch;
+  }
+  .phases{
+    display: flex;
+    flex-direction: column;
+  }
+  .phase{
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .phase:last-child{ border-bottom: 1px solid var(--line); }
+  .phase-num{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--paper-dim);
+  }
+  .phase-text{ font-size: 15.5px; }
+  .phase-text strong{
+    font-family: var(--font-display);
+    font-weight: 600;
+    display: block;
+    font-size: 16.5px;
+    margin-bottom: 2px;
+  }
+
+  /* ---------- Tools covered ---------- */
+  .tool-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .tool-badge{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .tool-badge .dot{
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* ---------- Format list ---------- */
+  .format-list{
+    columns: 2;
+    column-gap: 40px;
+  }
+  @media (max-width: 600px){ .format-list{ columns: 1; } }
+  .format-list li{
+    list-style: none;
+    font-size: 15px;
+    padding: 8px 0;
+    break-inside: avoid;
+    border-bottom: 1px solid var(--line);
+  }
+
+  footer{
+    padding: 60px 0 100px;
+    text-align: center;
+  }
+  footer p{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="thread-rail" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="dotgroup"><span></span><span></span><span></span><span></span></span>
+      Google AI Ecosystem Masterclass
+    </div>
+    <h1 class="title">Build, Design, Research, and Automate with Google's Latest AI Tools</h1>
+    <p class="subtitle">Learn how to use the complete Google AI ecosystem to research faster, create better products, design professional interfaces, build applications without coding, and generate videos using cutting-edge AI tools.</p>
+    <p class="hero-desc">This hands-on course focuses on practical workflows and real-world projects rather than theory.</p>
+    <div class="hero-meta">
+      <span><strong>8</strong> modules + capstone</span>
+      <span><strong>Gemini → AI Studio</strong> full pipeline</span>
+      <span><strong>No coding</strong> required for most modules</span>
+    </div>
+  </div>
+</header>
+
+<section id="who">
+  <div class="wrap">
+    <div class="section-label">Who is this course for</div>
+    <div class="chips">
+      <span class="chip">Students exploring AI tools</span>
+      <span class="chip">Entrepreneurs and startup founders</span>
+      <span class="chip">Product managers</span>
+      <span class="chip">Designers</span>
+      <span class="chip">Content creators</span>
+      <span class="chip">Marketing professionals</span>
+      <span class="chip">Developers looking to leverage AI</span>
+      <span class="chip">Anyone who wants to increase productivity using AI</span>
+    </div>
+    <p class="footnote">No coding experience is required for most modules.</p>
+  </div>
+</section>
+
+<section id="learn">
+  <div class="wrap">
+    <div class="section-label">What you'll learn</div>
+    <h2 class="section-title">By the end of this course, you will be able to</h2>
+    <div class="grid-2">
+      <div class="grid-item"><span class="mark">―</span><span>Conduct deep AI-assisted research</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Create reusable AI agents for repetitive work</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Build knowledge systems using documents and PDFs</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Design complete applications using AI</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Create websites from simple ideas</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Generate professional UI/UX designs</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Build no-code AI applications</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Create AI-generated videos and advertisements</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Build advanced AI workflows using Google AI Studio</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Combine multiple Google AI tools into end-to-end business workflows</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="modules">
+
+  <section class="module" style="--accent: var(--blue);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 01</span>
+        <h3 class="module-title">Gemini Mastery</h3>
+      </div>
+      <div class="module-rule"></div>
+      <div class="submods">
+        <div class="submod">
+          <h4>Introduction to Gemini</h4>
+          <ul>
+            <li>Understanding Gemini capabilities</li>
+            <li>Prompting fundamentals</li>
+            <li>Working with text, images, and documents</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Deep Research</h4>
+          <ul>
+            <li>Deep Research workflows</li>
+            <li>Competitive analysis</li>
+            <li>Market research</li>
+            <li>Business intelligence</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>AI Critic Framework</h4>
+          <ul>
+            <li>Business advisor</li>
+            <li>Product critic</li>
+            <li>Resume reviewer</li>
+            <li>Content reviewer</li>
+            <li>Design evaluator</li>
+            <li>Startup consultant</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Content Creation</h4>
+          <ul>
+            <li>Blogs</li>
+            <li>Reports</li>
+            <li>Presentations</li>
+            <li>Marketing copy</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Image Generation</h4>
+          <ul>
+            <li>Generate marketing images</li>
+            <li>Product concepts</li>
+            <li>Brand assets</li>
+            <li>Social media visuals</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Website Generation</h4>
+          <ul>
+            <li>Create websites from research documents</li>
+            <li>Convert ideas into landing pages</li>
+            <li>Generate content structures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Research a startup idea and generate a complete landing page concept.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--red);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 02</span>
+        <h3 class="module-title">Gemini Gems</h3>
+      </div>
+      <div class="module-rule"></div>
+      <div class="submods">
+        <div class="submod">
+          <h4>Creating Custom AI Agents</h4>
+          <ul>
+            <li>What Gems are</li>
+            <li>When to use Gems</li>
+            <li>Prompt vs Gem</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Building Specialized Agents</h4>
+          <ul>
+            <li>Coding Mentor</li>
+            <li>Startup Advisor</li>
+            <li>Research Assistant</li>
+            <li>Resume Reviewer</li>
+            <li>Content Creator</li>
+            <li>Personal Coach</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Knowledge Integration</h4>
+          <ul>
+            <li>Attaching documents</li>
+            <li>Creating reusable workflows</li>
+            <li>Long-term productivity systems</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Build a Personal Business Consultant Gem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--yellow);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 03</span>
+        <h3 class="module-title">NotebookLM</h3>
+      </div>
+      <div class="module-rule"></div>
+      <div class="submods">
+        <div class="submod">
+          <h4>AI-Powered Knowledge Management</h4>
+          <ul>
+            <li>Upload PDFs</li>
+            <li>Upload research documents</li>
+            <li>Website analysis</li>
+            <li>Knowledge organization</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Learning and Research</h4>
+          <ul>
+            <li>Study guides</li>
+            <li>Summaries</li>
+            <li>FAQs</li>
+            <li>Research assistants</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Audio Overviews</h4>
+          <ul>
+            <li>AI-generated podcasts</li>
+            <li>Learning from documents</li>
+            <li>Conversational summaries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Create an AI-powered knowledge base from multiple business documents.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--green);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 04</span>
+        <h3 class="module-title">Stitch</h3>
+      </div>
+      <div class="module-rule"></div>
+      <p style="color: var(--paper-dim); margin-bottom: 28px; max-width: 56ch;">Designing with AI — learn how to transform ideas into production-ready interfaces.</p>
+      <div class="submods">
+        <div class="submod">
+          <h4>Stitch Prompting Framework</h4>
+          <p style="font-size:14.5px; color: var(--paper-dim); margin-bottom:8px;">Every design prompt includes:</p>
+          <ul>
+            <li>Idea</li>
+            <li>Theme</li>
+            <li>Content</li>
+            <li>Optional Image</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Design Workflows</h4>
+          <ul>
+            <li>Landing pages</li>
+            <li>Dashboards</li>
+            <li>SaaS applications</li>
+            <li>Mobile apps</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Advanced Features</h4>
+          <ul>
+            <li>Stitch WordBank</li>
+            <li>Design.md workflow</li>
+            <li>Theme customization</li>
+            <li>Section-level editing</li>
+            <li>Template remixing</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Figma Integration</h4>
+          <ul>
+            <li>Exporting to Figma</li>
+            <li>Developer handoff</li>
+            <li>Design iteration</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Design a complete SaaS product interface.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--blue);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 05</span>
+        <h3 class="module-title">Opal</h3>
+      </div>
+      <div class="module-rule"></div>
+      <p style="color: var(--paper-dim); margin-bottom: 28px; max-width: 56ch;">No-code application development.</p>
+      <div class="submods">
+        <div class="submod">
+          <h4>Foundations</h4>
+          <ul>
+            <li>Understanding Opal</li>
+            <li>Workflow creation</li>
+            <li>App building without coding</li>
+            <li>Automation concepts</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Building Real Applications</h4>
+          <ul>
+            <li>Internal tools</li>
+            <li>Business workflows</li>
+            <li>AI assistants</li>
+            <li>Productivity apps</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Build an AI-powered lead qualification application.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--red);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 06</span>
+        <h3 class="module-title">Google Flow</h3>
+      </div>
+      <div class="module-rule"></div>
+      <p style="color: var(--paper-dim); margin-bottom: 28px; max-width: 56ch;">AI video creation.</p>
+      <div class="submods">
+        <div class="submod">
+          <h4>Introduction to Flow</h4>
+          <ul>
+            <li>Storytelling fundamentals</li>
+            <li>Scene generation</li>
+            <li>Camera control</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Video Production</h4>
+          <ul>
+            <li>Marketing videos</li>
+            <li>Product demos</li>
+            <li>Social media content</li>
+            <li>Commercial advertisements</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Advanced Prompting</h4>
+          <ul>
+            <li>Character consistency</li>
+            <li>Scene continuity</li>
+            <li>Creative direction</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Create a professional 30-second startup advertisement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--yellow);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 07</span>
+        <h3 class="module-title">Flow TV</h3>
+      </div>
+      <div class="module-rule"></div>
+      <p style="color: var(--paper-dim); margin-bottom: 28px; max-width: 56ch;">Learning from successful AI videos.</p>
+      <div class="submods">
+        <div class="submod">
+          <h4>Studying the Craft</h4>
+          <ul>
+            <li>Analyze top creations</li>
+            <li>Reverse engineer prompts</li>
+            <li>Study visual storytelling</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Remix Workflows</h4>
+          <ul>
+            <li>Prompt extraction</li>
+            <li>Creative adaptation</li>
+            <li>Building reusable templates</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Recreate and customize a successful Flow TV concept.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" style="--accent: var(--green);">
+    <div class="wrap">
+      <div class="module-head">
+        <span class="module-num">Module 08</span>
+        <h3 class="module-title">Google AI Studio</h3>
+      </div>
+      <div class="module-rule"></div>
+      <div class="submods">
+        <div class="submod">
+          <h4>AI Studio Fundamentals</h4>
+          <ul>
+            <li>Interface overview</li>
+            <li>Playground</li>
+            <li>Model testing</li>
+            <li>Prompt experimentation</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>AI Studio Gallery</h4>
+          <ul>
+            <li>Understanding templates</li>
+            <li>Rapid prototyping</li>
+            <li>Workflow acceleration</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>App Generation</h4>
+          <ul>
+            <li>Build applications</li>
+            <li>Generate interfaces</li>
+            <li>Create prototypes</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Asset Creation</h4>
+          <ul>
+            <li>Logo generation</li>
+            <li>Brand concepts</li>
+            <li>Marketing assets</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Realtime AI Systems</h4>
+          <ul>
+            <li>Live translation</li>
+            <li>Screen watcher</li>
+            <li>Voice interactions</li>
+            <li>Realtime assistants</li>
+          </ul>
+        </div>
+        <div class="submod">
+          <h4>Advanced Workflows</h4>
+          <ul>
+            <li>Structured outputs</li>
+            <li>Multimodal inputs</li>
+            <li>AI automation systems</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-box">
+        <span class="plabel">Project</span>
+        <p>Build a complete AI-powered assistant.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<section id="capstone">
+  <div class="wrap">
+    <div class="section-label">Final capstone project</div>
+    <h2 class="section-title">Build an end-to-end AI product using the entire Google ecosystem</h2>
+    <div class="phases">
+      <div class="phase">
+        <span class="phase-num">Phase 1</span>
+        <div class="phase-text">Research using Gemini.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 2</span>
+        <div class="phase-text">Organize knowledge using NotebookLM.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 3</span>
+        <div class="phase-text">Create specialized Gems.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 4</span>
+        <div class="phase-text">Design the interface using Stitch.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 5</span>
+        <div class="phase-text">Build the application using Opal or AI Studio.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 6</span>
+        <div class="phase-text">Create promotional videos using Flow.</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">Phase 7</span>
+        <div class="phase-text">Improve and iterate using AI feedback loops.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="outcomes">
+  <div class="wrap">
+    <div class="section-label">Course outcomes</div>
+    <h2 class="section-title">After completing this course, students will be able to</h2>
+    <div class="grid-2">
+      <div class="grid-item"><span class="mark">―</span><span>Use Google AI tools professionally</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Build AI-assisted workflows</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Design products with AI</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Create content faster</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Build no-code applications</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Generate AI videos</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Develop advanced AI systems</span></div>
+      <div class="grid-item"><span class="mark">―</span><span>Launch AI-powered business ideas</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="section-label">Tools covered</div>
+    <div class="tool-badges">
+      <span class="tool-badge"><span class="dot" style="background:var(--blue);"></span>Gemini</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--red);"></span>Gemini Gems</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--yellow);"></span>NotebookLM</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--green);"></span>Stitch</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--blue);"></span>Opal</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--red);"></span>Google Flow</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--yellow);"></span>Flow TV</span>
+      <span class="tool-badge"><span class="dot" style="background:var(--green);"></span>Google AI Studio</span>
+    </div>
+  </div>
+</section>
+
+<section id="format" style="border-bottom: none;">
+  <div class="wrap">
+    <div class="section-label">Learning format</div>
+    <ul class="format-list">
+      <li>Live demonstrations</li>
+      <li>Guided exercises</li>
+      <li>Real-world projects</li>
+      <li>Hands-on assignments</li>
+      <li>Capstone project</li>
+      <li>Templates and workflows included</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>Google AI Ecosystem Masterclass — Gemini · Gems · NotebookLM · Stitch · Opal · Flow · Flow TV · AI Studio</p>
+</footer>
+
+</body>
+</html>
